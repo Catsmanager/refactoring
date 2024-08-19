@@ -1,0 +1,13 @@
+.App {
+  display: flex;
+}
+
+.content {
+  flex-grow: 1;
+  height: 100vh; /* Sidebar를 제외한 전체 화면 높이를 차지하도록 설정 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  box-sizing: border-box;
+}
