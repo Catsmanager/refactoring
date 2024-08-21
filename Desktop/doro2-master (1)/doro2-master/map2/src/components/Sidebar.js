@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaBars } from 'react-icons/fa';
+import { FaBars, FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
 function Sidebar({ isOpen, toggleSidebar }) {
@@ -54,6 +54,11 @@ function Sidebar({ isOpen, toggleSidebar }) {
         >
           <i className="fas fa-fw fa-wrench"></i>
           <span>사건 목록</span>
+
+          {/* 토글 버튼 아이콘 */}
+          <span className="ml-auto" style={{ marginLeft: '10px', fontSize: '1.2rem', color: '#fff' }}>
+            {incidentSubmenuOpen ? <FaChevronUp /> : <FaChevronDown />}
+          </span>
         </a>
         <div
           id="collapseIncident"
@@ -77,13 +82,23 @@ function Sidebar({ isOpen, toggleSidebar }) {
 
       {/* Sidebar Toggler */}
       <div className="text-center d-none d-md-inline">
-        <button className="rounded-circle border-0" onClick={toggleSidebar} id="sidebarToggle"></button>
+        <button className="btn btn-primary rounded-circle" onClick={toggleSidebar} id="sidebarToggle">
+          <FaBars />
+        </button>
       </div>
     </ul>
   );
 }
 
 export default Sidebar;
+
+
+
+
+
+
+
+
 
 
 

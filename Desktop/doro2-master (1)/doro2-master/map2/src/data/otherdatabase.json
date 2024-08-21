@@ -1,0 +1,22 @@
+[
+	{
+		"id" : 1,
+		"report_type" : "자체점검",
+		"damage_type" : "포트홀",
+		"location" : "대구 서구 비산동 1705-2",
+		"scale" : 0.04,
+		"damage_count" : 2,
+		"material_name" : "포대아스콘",
+		"district" : "서구",
+		"report_date" : "2021-01-01"
+	},
+	{
+		"id" : 2,
+		"report_type" : "자체점검",
+		"damage_type" : "포트홀",
+		"location" : "대구 서구 비산동 1705-2",
+		"scale" : 0.12,
+		"damage_count" : 1,
+		"material_name" : "포대아스콘",
+		"district" : "서구",
+		"report_date" : "2021-01-04"}]

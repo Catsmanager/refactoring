@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import cause1Polygons from '../data/cause1Polygons.json';
-import cause2Polygons from '../data/cause2Polygons.json';
+import cause1Polygons1 from '../data/cause1Polygons1.json';
+import cause1Polygons2 from '../data/cause1Polygons2.json';
+import cause1Polygons3 from '../data/cause1Polygons3.json';
+import cause2Polygons1 from '../data/cause2Polygons1.json'; // 새로 추가
+import cause2Polygons2 from '../data/cause2Polygons2.json'; // 새로 추가
+import cause2Polygons3 from '../data/cause2Polygons3.json';
 import cause3Polygons from '../data/cause3Polygons.json';
 
 function MapB() {
   const [map, setMap] = useState(null);
   const [polygons, setPolygons] = useState({});
+  const [showCause1Options, setShowCause1Options] = useState(false);
+  const [showCause2Options, setShowCause2Options] = useState(false); // 교통 버튼 토글 상태
 
-  const initialPosition = new window.kakao.maps.LatLng(33.450701, 126.570667);
+  const initialPosition = new window.kakao.maps.LatLng(35.8714354, 128.582729);
 
   useEffect(() => {
     const script = document.createElement('script');
@@ -27,9 +33,13 @@ function MapB() {
 
         // 폴리곤 생성
         const createdPolygons = {
-          cause1: createPolygons(kakaoMap, cause1Polygons, '#FF0000'),
-          cause2: createPolygons(kakaoMap, cause2Polygons, '#00FF00'),
-          cause3: createPolygons(kakaoMap, cause3Polygons, '#0000FF')
+          cause1_1: createPolygons(kakaoMap, cause1Polygons1, '#FF5733'), // 오렌지색
+          cause1_2: createPolygons(kakaoMap, cause1Polygons2, '#08088A'), // 
+          cause1_3: createPolygons(kakaoMap, cause1Polygons3, '#8E44AD'), // 보라색
+          cause2_1: createPolygons(kakaoMap, cause2Polygons1, '#3498DB'), // 파란색
+          cause2_2: createPolygons(kakaoMap, cause2Polygons2, '#1F618D'), // 어두운 파란색
+          cause2_3: createPolygons(kakaoMap, cause2Polygons3, '#FF00FF'), // 핑크색
+          cause3: createPolygons(kakaoMap, cause3Polygons, '#F39C12'), // 황금색
         };
         setPolygons(createdPolygons);
       });
@@ -70,15 +80,63 @@ function MapB() {
       <div id="mapB" className="card shadow mb-4" style={{ height: '700px', position: 'relative' }}>
         
         {/* 폴리곤 토글 버튼들 */}
-        <div style={{ position: 'absolute', top: '20px', left: '20px', zIndex: 1000 }}>
-          <button className="btn btn-danger btn-sm mr-2" onClick={() => togglePolygonsVisibility('cause1')}>
-            <span style={{ fontWeight: 'bold' }}>원인 1</span> {polygons.cause1 && polygons.cause1[0].getMap() ? '숨김' : '표시'}
+        <div style={{ position: 'absolute', top: '20px', left: '20px', zIndex: 1000, display: 'flex', flexDirection: 'column' }}>
+          <button 
+            className="btn btn-sm mb-2" 
+            style={{ backgroundColor: '#8E44AD', borderColor: '#8E44AD', color: '#FFFFFF', opacity: 0.9 }}
+            onClick={() => setShowCause1Options(!showCause1Options)}
+          >
+            <span style={{ fontWeight: 'bold' }}>침수</span>
           </button>
-          <button className="btn btn-success btn-sm mr-2" onClick={() => togglePolygonsVisibility('cause2')}>
-            <span style={{ fontWeight: 'bold' }}>원인 2</span> {polygons.cause2 && polygons.cause2[0].getMap() ? '숨김' : '표시'}
+          {showCause1Options && (
+            <div style={{ marginLeft: '10px', display: 'flex', flexDirection: 'column' }}>
+              <button className="btn btn-sm mb-1" 
+                style={{ backgroundColor: '#FF5733', borderColor: '#FF5733', color: '#FFFFFF', opacity: 0.9 }}
+                onClick={() => togglePolygonsVisibility('cause1_1')}>
+                침수1 {polygons.cause1_1 && polygons.cause1_1[0].getMap() ? '숨김' : '표시'}
+              </button>
+              <button className="btn btn-sm mb-1" 
+                style={{ backgroundColor: '#DAF7A6', borderColor: '#DAF7A6', color: '#000000', opacity: 0.9 }}
+                onClick={() => togglePolygonsVisibility('cause1_2')}>
+                침수2 {polygons.cause1_2 && polygons.cause1_2[0].getMap() ? '숨김' : '표시'}
+              </button>
+              <button className="btn btn-sm mb-2" 
+                style={{ backgroundColor: '#8E44AD', borderColor: '#8E44AD', color: '#FFFFFF', opacity: 0.9 }}
+                onClick={() => togglePolygonsVisibility('cause1_3')}>
+                침수3 {polygons.cause1_3 && polygons.cause1_3[0].getMap() ? '숨김' : '표시'}
+              </button>
+            </div>
+          )}
+          <button 
+            className="btn btn-sm mb-2" 
+            style={{ backgroundColor: '#3498DB', borderColor: '#3498DB', color: '#FFFFFF', opacity: 0.9 }}
+            onClick={() => setShowCause2Options(!showCause2Options)}
+          >
+            <span style={{ fontWeight: 'bold' }}>교통</span>
           </button>
-          <button className="btn btn-primary btn-sm" onClick={() => togglePolygonsVisibility('cause3')}>
-            <span style={{ fontWeight: 'bold' }}>원인 3</span> {polygons.cause3 && polygons.cause3[0].getMap() ? '숨김' : '표시'}
+          {showCause2Options && (
+            <div style={{ marginLeft: '10px', display: 'flex', flexDirection: 'column' }}>
+              <button className="btn btn-sm mb-1" 
+                style={{ backgroundColor: '#3498DB', borderColor: '#3498DB', color: '#FFFFFF', opacity: 0.9 }}
+                onClick={() => togglePolygonsVisibility('cause2_1')}>
+                교통1 {polygons.cause2_1 && polygons.cause2_1[0].getMap() ? '숨김' : '표시'}
+              </button>
+              <button className="btn btn-sm mb-2" 
+                style={{ backgroundColor: '#1F618D', borderColor: '#1F618D', color: '#FFFFFF', opacity: 0.9 }}
+                onClick={() => togglePolygonsVisibility('cause2_2')}>
+                교통2 {polygons.cause2_2 && polygons.cause2_2[0].getMap() ? '숨김' : '표시'}
+              </button>
+              <button className="btn btn-sm mb-2" 
+                style={{ backgroundColor: '#FF00FF', borderColor: '#1F618D', color: '#FFFFFF', opacity: 0.9 }}
+                onClick={() => togglePolygonsVisibility('cause2_3')}>
+                교통3 {polygons.cause2_3 && polygons.cause2_3[0].getMap() ? '숨김' : '표시'}
+              </button>
+            </div>
+          )}
+          <button className="btn btn-sm" 
+            style={{ backgroundColor: '#F39C12', borderColor: '#F39C12', color: '#FFFFFF', opacity: 0.9 }}
+            onClick={() => togglePolygonsVisibility('cause3')}>
+            <span style={{ fontWeight: 'bold' }}>균열</span> {polygons.cause3 && polygons.cause3[0].getMap() ? '숨김' : '표시'}
           </button>
         </div>
 
@@ -99,6 +157,11 @@ function MapB() {
 }
 
 export default MapB;
+
+
+
+
+
 
 
 

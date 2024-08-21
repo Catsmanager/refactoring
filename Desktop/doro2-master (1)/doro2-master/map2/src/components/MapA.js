@@ -1,21 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import Draggable from 'react-draggable';
-import potholePositionsData from '../data/potholePositions.json';
+import seoguDatabase from '../data/seogudatabase.json';
 
 function MapA() {
-  const [potholePositions, setPotholePositions] = useState([]);
+  const [map, setMap] = useState(null);
+  const [isDraggableOpen, setIsDraggableOpen] = useState(true);
   const [keyword, setKeyword] = useState('');
   const [zipcode, setZipcode] = useState('');
-  const [isDraggableOpen, setIsDraggableOpen] = useState(true);
-  const [map, setMap] = useState(null);
-
-  useEffect(() => {
-    if (Array.isArray(potholePositionsData)) {
-      setPotholePositions(potholePositionsData);
-    } else {
-      console.error('Error: The loaded JSON data is not an array.');
-    }
-  }, []);
 
   useEffect(() => {
     if (window.kakao && window.kakao.maps) {
@@ -31,60 +22,82 @@ function MapA() {
   }, []);
 
   useEffect(() => {
-    if (map && potholePositions.length > 0) {
+    if (map && seoguDatabase.length > 0) {
       const geocoder = new window.kakao.maps.services.Geocoder();
-      const markers = [];
       const clusterer = new window.kakao.maps.MarkerClusterer({
         map: map,
         averageCenter: true,
         minLevel: 5,
         disableClickZoom: true,
-        calculator: [20, 50], // 마커 개수에 따른 구간 설정
+        calculator: [20, 50],
         styles: [
-            {
-                width: '30px', height: '30px',
-                background: 'rgba(51, 204, 255, .8)', // 10개 이하인 경우 파란색
-                borderRadius: '50%',
-                color: '#fff',
-                textAlign: 'center',
-                lineHeight: '30px',
-                fontSize: '12px',
-                border: '2px solid #33ccff'
-            },
-            {
-                width: '35px', height: '35px',
-                background: 'rgba(255, 153, 0, .8)', // 10개 이상 40개 이하인 경우 주황색
-                borderRadius: '50%',
-                color: '#fff',
-                textAlign: 'center',
-                lineHeight: '35px',
-                fontSize: '13px',
-                border: '2px solid #ff9900'
-            },
-            {
-                width: '40px', height: '40px',
-                background: 'rgba(255, 0, 0, .8)', // 40개 이상인 경우 빨간색
-                borderRadius: '50%',
-                color: '#fff',
-                textAlign: 'center',
-                lineHeight: '40px',
-                fontSize: '14px',
-                border: '2px solid #ff0000'
-            }
+          {
+            width: '30px', height: '30px',
+            background: 'rgba(51, 204, 255, .8)',
+            borderRadius: '50%',
+            color: '#fff',
+            textAlign: 'center',
+            lineHeight: '30px',
+            fontSize: '12px',
+            border: '2px solid #33ccff'
+          },
+          {
+            width: '35px', height: '35px',
+            background: 'rgba(255, 153, 0, .8)',
+            borderRadius: '50%',
+            color: '#fff',
+            textAlign: 'center',
+            lineHeight: '35px',
+            fontSize: '13px',
+            border: '2px solid #ff9900'
+          },
+          {
+            width: '40px', height: '40px',
+            background: 'rgba(255, 0, 0, .8)',
+            borderRadius: '50%',
+            color: '#fff',
+            textAlign: 'center',
+            lineHeight: '40px',
+            fontSize: '14px',
+            border: '2px solid #ff0000'
+          }
         ]
       });
 
-      const createMarker = (address) => {
+      const createMarker = (item) => {
         return new Promise((resolve, reject) => {
-          geocoder.addressSearch(address, (result, status) => {
+          geocoder.addressSearch(item.location, (result, status) => {
             if (status === window.kakao.maps.services.Status.OK) {
               const coords = new window.kakao.maps.LatLng(result[0].y, result[0].x);
               const marker = new window.kakao.maps.Marker({
                 position: coords,
               });
 
+              const content = `
+                <div style="padding:10px; font-size:14px; color:#333; background-color:#fff;">
+                  <div style="margin-bottom:5px; font-weight:bold; font-size:16px; color:#2c3e50;">
+                    <strong>위치:</strong> ${item.location}
+                  </div>
+                  <div style="margin-bottom:5px;">
+                    <strong style="color:#e74c3c;">파손 유형:</strong> ${item.damage_type}
+                  </div>
+                  <div style="margin-bottom:5px;">
+                    <strong style="color:#2980b9;">범위:</strong> ${item.scale} m²
+                  </div>
+                  <div style="margin-bottom:5px;">
+                    <strong style="color:#27ae60;">파손 횟수:</strong> ${item.damage_count}
+                  </div>
+                  <div style="margin-bottom:5px;">
+                    <strong style="color:#8e44ad;">사용 자재:</strong> ${item.material_name}
+                  </div>
+                  <div style="margin-bottom:5px;">
+                    <strong style="color:#d35400;">발생 일자:</strong> ${item.report_date}
+                  </div>
+                </div>
+              `;
+
               const infowindow = new window.kakao.maps.InfoWindow({
-                content: `<div style="padding:5px;font-size:12px;">${address}</div>`,
+                content: content,
               });
 
               let isOpen = false;
@@ -106,13 +119,13 @@ function MapA() {
         });
       };
 
-      Promise.all(potholePositions.map(createMarker))
+      Promise.all(seoguDatabase.map(createMarker))
         .then((markers) => {
           clusterer.addMarkers(markers);
         })
         .catch((error) => console.error(error));
     }
-  }, [map, potholePositions]);
+  }, [map]);
 
   const handleAddButtonClick = (e) => {
     e.preventDefault();
@@ -159,7 +172,7 @@ function MapA() {
   const handleResetMap = () => {
     if (map) {
       map.setCenter(new window.kakao.maps.LatLng(35.8714354, 128.582729));
-      map.setLevel(3);
+      map.setLevel(5);
     }
   };
 
@@ -241,6 +254,19 @@ function MapA() {
 }
 
 export default MapA;
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
