@@ -43,16 +43,14 @@ function Sidebar({ isOpen, toggleSidebar }) {
 
       {/* Submenu Example */}
       <li className="nav-item">
-        <a
-          className={`nav-link ${incidentSubmenuOpen ? '' : 'collapsed'}`}
-          href="#"
-          onClick={toggleIncidentSubmenu}
-          data-toggle="collapse"
-          data-target="#collapseIncident"
-          aria-expanded={incidentSubmenuOpen}
-          aria-controls="collapseIncident"
+      <a
+               className={`nav-link ${incidentSubmenuOpen ? '' : 'collapsed'}`}
+               href="#"
+               onClick={toggleIncidentSubmenu}
+               aria-expanded={incidentSubmenuOpen}
+              aria-controls="collapseIncident"
         >
-          <i className="fas fa-fw fa-wrench"></i>
+
           <span>사건 목록</span>
 
           {/* 토글 버튼 아이콘 */}
@@ -80,10 +78,9 @@ function Sidebar({ isOpen, toggleSidebar }) {
 
       <hr className="sidebar-divider d-none d-md-block" />
 
-      {/* Sidebar Toggler */}
       <div className="text-center d-none d-md-inline">
-        <button className="btn btn-primary rounded-circle" onClick={toggleSidebar} id="sidebarToggle">
-          <FaBars />
+        <button className="btn btn-primary rounded-circle" onClick={toggleSidebar} >
+        <FaBars />
         </button>
       </div>
     </ul>

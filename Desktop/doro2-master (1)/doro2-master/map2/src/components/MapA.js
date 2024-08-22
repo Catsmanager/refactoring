@@ -1,12 +1,33 @@
 import React, { useEffect, useState } from 'react';
 import Draggable from 'react-draggable';
-import seoguDatabase from '../data/seogudatabase.json';
+import potholePositionsData from '../data/potholePositions.json';
+import potholePositionsData2 from '../data/potholePositionsData2.json'; // 추가 마커 JSON 데이터 import
 
 function MapA() {
-  const [map, setMap] = useState(null);
-  const [isDraggableOpen, setIsDraggableOpen] = useState(true);
+  const [potholePositions, setPotholePositions] = useState([]);
+  const [additionalMarkers, setAdditionalMarkers] = useState([]);
   const [keyword, setKeyword] = useState('');
   const [zipcode, setZipcode] = useState('');
+  const [isDraggableOpen, setIsDraggableOpen] = useState(true);
+  const [map, setMap] = useState(null);
+  const [isPotholeLayerVisible, setIsPotholeLayerVisible] = useState(true);
+  const [isAdditionalLayerVisible, setIsAdditionalLayerVisible] = useState(true);
+  const [clusterer, setClusterer] = useState(null);
+  const [potholeMarkers, setPotholeMarkers] = useState([]);
+
+  useEffect(() => {
+    if (Array.isArray(potholePositionsData)) {
+      setPotholePositions(potholePositionsData);
+    } else {
+      console.error('오류: 로드된 JSON 데이터가 배열이 아닙니다.');
+    }
+    
+    if (Array.isArray(potholePositionsData2)) {
+      setAdditionalMarkers(potholePositionsData2);
+    } else {
+      console.error('오류: 추가로 로드된 JSON 데이터가 배열이 아닙니다.');
+    }
+  }, []);
 
   useEffect(() => {
     if (window.kakao && window.kakao.maps) {
@@ -17,23 +38,16 @@ function MapA() {
       };
 
       const kakaoMap = new window.kakao.maps.Map(container, options);
-      setMap(kakaoMap);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (map && seoguDatabase.length > 0) {
-      const geocoder = new window.kakao.maps.services.Geocoder();
-      const clusterer = new window.kakao.maps.MarkerClusterer({
-        map: map,
+      const newClusterer = new window.kakao.maps.MarkerClusterer({
+        map: kakaoMap,
         averageCenter: true,
         minLevel: 5,
         disableClickZoom: true,
-        calculator: [20, 50],
+        calculator: [20, 50, 100, 200],  // 마커 개수에 따른 구간 설정
         styles: [
           {
             width: '30px', height: '30px',
-            background: 'rgba(51, 204, 255, .8)',
+            background: 'rgba(51, 204, 255, .8)', // 마커 개수가 20개 이하일 때 파란색
             borderRadius: '50%',
             color: '#fff',
             textAlign: 'center',
@@ -43,7 +57,7 @@ function MapA() {
           },
           {
             width: '35px', height: '35px',
-            background: 'rgba(255, 153, 0, .8)',
+            background: 'rgba(255, 153, 0, .8)', // 마커 개수가 20개 이상 50개 이하일 때 주황색
             borderRadius: '50%',
             color: '#fff',
             textAlign: 'center',
@@ -53,51 +67,57 @@ function MapA() {
           },
           {
             width: '40px', height: '40px',
-            background: 'rgba(255, 0, 0, .8)',
+            background: 'rgba(255, 0, 0, .8)', // 마커 개수가 50개 이상 100개 이하일 때 빨간색
             borderRadius: '50%',
             color: '#fff',
             textAlign: 'center',
             lineHeight: '40px',
             fontSize: '14px',
             border: '2px solid #ff0000'
+          },
+          {
+            width: '45px', height: '45px',
+            background: 'rgba(0, 128, 0, .8)', // 마커 개수가 100개 이상 200개 이하일 때 초록색
+            borderRadius: '50%',
+            color: '#fff',
+            textAlign: 'center',
+            lineHeight: '45px',
+            fontSize: '15px',
+            border: '2px solid #008000'
+          },
+          {
+            width: '50px', height: '50px',
+            background: 'rgba(128, 0, 128, .8)', // 마커 개수가 200개 이상일 때 보라색
+            borderRadius: '50%',
+            color: '#fff',
+            textAlign: 'center',
+            lineHeight: '50px',
+            fontSize: '16px',
+            border: '2px solid #800080'
           }
         ]
       });
+      setMap(kakaoMap);
+      setClusterer(newClusterer);
+    }
+  }, []);
 
-      const createMarker = (item) => {
+  useEffect(() => {
+    if (map && potholePositions.length > 0) {
+      const geocoder = new window.kakao.maps.services.Geocoder();
+      const markers = [];
+
+      const createMarker = (address) => {
         return new Promise((resolve, reject) => {
-          geocoder.addressSearch(item.location, (result, status) => {
+          geocoder.addressSearch(address, (result, status) => {
             if (status === window.kakao.maps.services.Status.OK) {
               const coords = new window.kakao.maps.LatLng(result[0].y, result[0].x);
               const marker = new window.kakao.maps.Marker({
                 position: coords,
               });
 
-              const content = `
-                <div style="padding:10px; font-size:14px; color:#333; background-color:#fff;">
-                  <div style="margin-bottom:5px; font-weight:bold; font-size:16px; color:#2c3e50;">
-                    <strong>위치:</strong> ${item.location}
-                  </div>
-                  <div style="margin-bottom:5px;">
-                    <strong style="color:#e74c3c;">파손 유형:</strong> ${item.damage_type}
-                  </div>
-                  <div style="margin-bottom:5px;">
-                    <strong style="color:#2980b9;">범위:</strong> ${item.scale} m²
-                  </div>
-                  <div style="margin-bottom:5px;">
-                    <strong style="color:#27ae60;">파손 횟수:</strong> ${item.damage_count}
-                  </div>
-                  <div style="margin-bottom:5px;">
-                    <strong style="color:#8e44ad;">사용 자재:</strong> ${item.material_name}
-                  </div>
-                  <div style="margin-bottom:5px;">
-                    <strong style="color:#d35400;">발생 일자:</strong> ${item.report_date}
-                  </div>
-                </div>
-              `;
-
               const infowindow = new window.kakao.maps.InfoWindow({
-                content: content,
+                content: `<div style="padding:5px;font-size:12px;">${address}</div>`,
               });
 
               let isOpen = false;
@@ -113,19 +133,39 @@ function MapA() {
 
               resolve(marker);
             } else {
-              reject(`Geocode was not successful for the following reason: ${status}`);
+              reject(`지오코딩에 실패했습니다: ${status}`);
             }
           });
         });
       };
 
-      Promise.all(seoguDatabase.map(createMarker))
+      Promise.all(potholePositions.map(createMarker))
         .then((markers) => {
-          clusterer.addMarkers(markers);
+          setPotholeMarkers(markers); // 마커를 상태로 저장
+          if (isPotholeLayerVisible) {
+            clusterer.addMarkers(markers); // 마커 추가
+          }
         })
         .catch((error) => console.error(error));
     }
-  }, [map]);
+  }, [map, potholePositions, clusterer, isPotholeLayerVisible]);
+
+  useEffect(() => {
+    if (map && additionalMarkers.length > 0) {
+      const markers = additionalMarkers.map(({ lat, lng }) => {
+        const marker = new window.kakao.maps.Marker({
+          position: new window.kakao.maps.LatLng(lat, lng),
+        });
+        return marker;
+      });
+
+      if (isAdditionalLayerVisible) {
+        clusterer.addMarkers(markers); // 추가 마커를 클러스터에 포함
+      } else {
+        clusterer.removeMarkers(markers); // 클러스터에서 제거
+      }
+    }
+  }, [map, additionalMarkers, isAdditionalLayerVisible, clusterer]);
 
   const handleAddButtonClick = (e) => {
     e.preventDefault();
@@ -143,7 +183,7 @@ function MapA() {
           });
           map.setCenter(position);
         } else {
-          console.error(`Place search was not successful for the following reason: ${status}`);
+          console.error(`키워드 검색에 실패했습니다: ${status}`);
         }
       });
     }
@@ -163,7 +203,7 @@ function MapA() {
           });
           map.setCenter(coords);
         } else {
-          console.error(`Zipcode search was not successful for the following reason: ${status}`);
+          console.error(`우편번호 검색에 실패했습니다: ${status}`);
         }
       });
     }
@@ -172,18 +212,34 @@ function MapA() {
   const handleResetMap = () => {
     if (map) {
       map.setCenter(new window.kakao.maps.LatLng(35.8714354, 128.582729));
-      map.setLevel(5);
+      map.setLevel(3);
     }
+  };
+
+  const handleTogglePotholeLayer = () => {
+    if (isPotholeLayerVisible) {
+      clusterer.removeMarkers(potholeMarkers); // 포트홀 마커 제거
+    } else {
+      clusterer.addMarkers(potholeMarkers); // 포트홀 마커 추가
+    }
+    setIsPotholeLayerVisible(!isPotholeLayerVisible);
+  };
+
+  const handleToggleAdditionalLayer = () => {
+    setIsAdditionalLayerVisible(!isAdditionalLayerVisible);
   };
 
   return (
     <div className="container-fluid">
-      <h2 className="h3 mb-4 text-gray-800">Map A</h2>
+  <h2 className="h3 mb-4 text-gray-800 font-weight-bold">
+  Data map(<span style={{ color: 'red' }}>A</span>)
+  </h2>
+
       <div id="mapA" className="card shadow mb-4" style={{ height: '700px', position: 'relative' }}>
         <Draggable>
           <div className={`modal-content ${isDraggableOpen ? '' : 'd-none'}`} style={{ width: '300px', padding: '20px', position: 'absolute', top: '20px', left: '20px', zIndex: 1000 }}>
             <div className="modal-header">
-              <h5 className="modal-title">포트홀 발생 위치 추가</h5>
+              <h5 className="modal-title">포트홀발생 위치 추가</h5>
               <button type="button" className="close" onClick={() => setIsDraggableOpen(false)}>
                 <span>&times;</span>
               </button>
@@ -212,7 +268,7 @@ function MapA() {
                   </button>
                 </div>
                 <div className="form-group">
-                  <label htmlFor="keyword">주소/장소명 입력:</label>
+                  <label htmlFor="keyword">주소 입력:</label>
                   <input 
                     type="text" 
                     className="form-control"
@@ -248,12 +304,39 @@ function MapA() {
           </span>
           <span className="text">처음 위치로</span>
         </button>
+
+        <button 
+          onClick={handleTogglePotholeLayer} 
+          className="btn btn-warning btn-icon-split"
+          style={{ position: 'absolute', bottom: '60px', right: '20px', zIndex: 1000 }}
+        >
+          <span className="icon text-white-50">
+            <i className={`fas ${isPotholeLayerVisible ? 'fa-eye-slash' : 'fa-eye'}`}></i>
+          </span>
+          <span className="text">{isPotholeLayerVisible ? '21/22데이터 숨기기' : '21/22데이터 보기'}</span>
+        </button>
+
+        <button 
+          onClick={handleToggleAdditionalLayer} 
+          className="btn btn-secondary btn-icon-split"
+          style={{ position: 'absolute', bottom: '20px', right: '20px', zIndex: 1000 }}
+        >
+          <span className="icon text-white-50">
+            <i className={`fas ${isAdditionalLayerVisible ? 'fa-eye-slash' : 'fa-eye'}`}></i>
+          </span>
+          <span className="text">{isAdditionalLayerVisible ? '23/24데이터 숨기기' : '23/24데이터 보기'}</span>
+        </button>
       </div>
     </div>
   );
 }
 
 export default MapA;
+
+
+
+
+
 
 
 

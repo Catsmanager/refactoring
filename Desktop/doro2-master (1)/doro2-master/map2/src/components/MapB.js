@@ -33,12 +33,12 @@ function MapB() {
 
         // 폴리곤 생성
         const createdPolygons = {
-          cause1_1: createPolygons(kakaoMap, cause1Polygons1, '#FF5733'), // 오렌지색
-          cause1_2: createPolygons(kakaoMap, cause1Polygons2, '#08088A'), // 
-          cause1_3: createPolygons(kakaoMap, cause1Polygons3, '#8E44AD'), // 보라색
-          cause2_1: createPolygons(kakaoMap, cause2Polygons1, '#3498DB'), // 파란색
-          cause2_2: createPolygons(kakaoMap, cause2Polygons2, '#1F618D'), // 어두운 파란색
-          cause2_3: createPolygons(kakaoMap, cause2Polygons3, '#FF00FF'), // 핑크색
+          cause1_1: createPolygons(kakaoMap, cause1Polygons1, '#0000FF'), // 오렌지색
+          cause1_2: createPolygons(kakaoMap, cause1Polygons2, '#0000FF'), // 
+          cause1_3: createPolygons(kakaoMap, cause1Polygons3, '#0000FF'), // 보라색
+          cause2_1: createPolygons(kakaoMap, cause2Polygons1, '#D2691E'), // 파란색
+          cause2_2: createPolygons(kakaoMap, cause2Polygons2, '#D2691E'), // 어두운 파란색
+          cause2_3: createPolygons(kakaoMap, cause2Polygons3, '#D2691E'), // 핑크색
           cause3: createPolygons(kakaoMap, cause3Polygons, '#F39C12'), // 황금색
         };
         setPolygons(createdPolygons);
@@ -76,14 +76,14 @@ function MapB() {
 
   return (
     <div className="container-fluid">
-      <h2 className="h3 mb-4 text-gray-800">Map B</h2>
+      <h2 className="h3 mb-4 text-gray-800 font-weight-bold">Hazard map(B)</h2>
       <div id="mapB" className="card shadow mb-4" style={{ height: '700px', position: 'relative' }}>
         
         {/* 폴리곤 토글 버튼들 */}
         <div style={{ position: 'absolute', top: '20px', left: '20px', zIndex: 1000, display: 'flex', flexDirection: 'column' }}>
           <button 
             className="btn btn-sm mb-2" 
-            style={{ backgroundColor: '#8E44AD', borderColor: '#8E44AD', color: '#FFFFFF', opacity: 0.9 }}
+            style={{ backgroundColor: '#000080', borderColor: '#000080', color: '#FFFFFF', opacity: 0.9 }}
             onClick={() => setShowCause1Options(!showCause1Options)}
           >
             <span style={{ fontWeight: 'bold' }}>침수</span>
@@ -91,17 +91,17 @@ function MapB() {
           {showCause1Options && (
             <div style={{ marginLeft: '10px', display: 'flex', flexDirection: 'column' }}>
               <button className="btn btn-sm mb-1" 
-                style={{ backgroundColor: '#FF5733', borderColor: '#FF5733', color: '#FFFFFF', opacity: 0.9 }}
+                style={{ backgroundColor: '#0000CD', borderColor: '#0000CD', color: '#FFFFFF', opacity: 0.9 }}
                 onClick={() => togglePolygonsVisibility('cause1_1')}>
                 침수1 {polygons.cause1_1 && polygons.cause1_1[0].getMap() ? '숨김' : '표시'}
               </button>
               <button className="btn btn-sm mb-1" 
-                style={{ backgroundColor: '#DAF7A6', borderColor: '#DAF7A6', color: '#000000', opacity: 0.9 }}
+                style={{ backgroundColor: '#0000CD', borderColor: '#0000CD', color: '#FFFFFF', opacity: 0.9 }}
                 onClick={() => togglePolygonsVisibility('cause1_2')}>
                 침수2 {polygons.cause1_2 && polygons.cause1_2[0].getMap() ? '숨김' : '표시'}
               </button>
               <button className="btn btn-sm mb-2" 
-                style={{ backgroundColor: '#8E44AD', borderColor: '#8E44AD', color: '#FFFFFF', opacity: 0.9 }}
+                style={{ backgroundColor: '#0000CD', borderColor: '#0000CD', color: '#FFFFFF', opacity: 0.9 }}
                 onClick={() => togglePolygonsVisibility('cause1_3')}>
                 침수3 {polygons.cause1_3 && polygons.cause1_3[0].getMap() ? '숨김' : '표시'}
               </button>
@@ -109,7 +109,7 @@ function MapB() {
           )}
           <button 
             className="btn btn-sm mb-2" 
-            style={{ backgroundColor: '#3498DB', borderColor: '#3498DB', color: '#FFFFFF', opacity: 0.9 }}
+            style={{ backgroundColor: '#8B4513', borderColor: '#8B4513', color: '#FFFFFF', opacity: 0.9 }}
             onClick={() => setShowCause2Options(!showCause2Options)}
           >
             <span style={{ fontWeight: 'bold' }}>교통</span>
@@ -117,17 +117,17 @@ function MapB() {
           {showCause2Options && (
             <div style={{ marginLeft: '10px', display: 'flex', flexDirection: 'column' }}>
               <button className="btn btn-sm mb-1" 
-                style={{ backgroundColor: '#3498DB', borderColor: '#3498DB', color: '#FFFFFF', opacity: 0.9 }}
+                style={{ backgroundColor: '#A0522D', borderColor: '#A0522D', color: '#FFFFFF', opacity: 0.9 }}
                 onClick={() => togglePolygonsVisibility('cause2_1')}>
                 교통1 {polygons.cause2_1 && polygons.cause2_1[0].getMap() ? '숨김' : '표시'}
               </button>
               <button className="btn btn-sm mb-2" 
-                style={{ backgroundColor: '#1F618D', borderColor: '#1F618D', color: '#FFFFFF', opacity: 0.9 }}
+                style={{ backgroundColor: '#A0522D', borderColor: '#A0522D', color: '#FFFFFF', opacity: 0.9 }}
                 onClick={() => togglePolygonsVisibility('cause2_2')}>
                 교통2 {polygons.cause2_2 && polygons.cause2_2[0].getMap() ? '숨김' : '표시'}
               </button>
               <button className="btn btn-sm mb-2" 
-                style={{ backgroundColor: '#FF00FF', borderColor: '#1F618D', color: '#FFFFFF', opacity: 0.9 }}
+                style={{ backgroundColor: '#A0522D', borderColor: '#A0522D', color: '#FFFFFF', opacity: 0.9 }}
                 onClick={() => togglePolygonsVisibility('cause2_3')}>
                 교통3 {polygons.cause2_3 && polygons.cause2_3[0].getMap() ? '숨김' : '표시'}
               </button>
