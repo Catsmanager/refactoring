@@ -1,4 +1,4 @@
-package com.uhm.glow_refactoring;
+package com.uhm.refactoring;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
