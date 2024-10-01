@@ -1,0 +1,41 @@
+/* Bookly 테마의 스타일을 기반으로 추가적인 커스터마이징 */
+.homepage-container {
+  background-color: #f8f9fa;
+}
+
+header {
+ 
+  background-size: cover;
+  background-position: center;
+  color: white;
+}
+
+header h1 {
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+header p {
+  font-size: 1.5rem;
+}
+
+.card {
+  border: none;
+  border-radius: 15px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.btn-primary {
+  background-color: #ff6b6b;
+  border-color: #ff6b6b;
+}
+
+.btn-primary:hover {
+  background-color: #ff4757;
+  border-color: #ff4757;
+}
