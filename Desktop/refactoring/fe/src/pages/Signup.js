@@ -16,7 +16,6 @@ function Signup() {
       return;
     }
 
-
     const userData = {
       username,
       email,
@@ -46,47 +45,51 @@ function Signup() {
   };
 
   return (
-    <div className="signup-container">
-      <h2>회원가입</h2>
+    <div className="signup-container container mt-5">
+      <h2 className="text-center">회원가입</h2>
       <form onSubmit={handleSubmit} className="signup-form">
-        <label>
-          사용자 이름:
+        <div className="form-group">
+          <label>사용자 이름:</label>
           <input
             type="text"
+            className="form-control"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required
           />
-        </label>
-        <label>
-          이메일:
+        </div>
+        <div className="form-group">
+          <label>이메일:</label>
           <input
             type="email"
+            className="form-control"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-        </label>
-        <label>
-          비밀번호:
+        </div>
+        <div className="form-group">
+          <label>비밀번호:</label>
           <input
             type="password"
+            className="form-control"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-        </label>
-        <label>
-          비밀번호 확인:
+        </div>
+        <div className="form-group">
+          <label>비밀번호 확인:</label>
           <input
             type="password"
+            className="form-control"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
           />
-        </label>
-        <button type="submit">회원가입</button>
-        {message && <p className="signup-message">{message}</p>} 
+        </div>
+        <button type="submit" className="btn btn-primary btn-block mt-3">회원가입</button>
+        {message && <p className={`signup-message ${message.includes('오류') ? 'text-danger' : 'text-success'} mt-3`}>{message}</p>}
       </form>
     </div>
   );

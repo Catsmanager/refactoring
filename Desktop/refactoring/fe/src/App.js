@@ -5,19 +5,23 @@ import FestivalList from './pages/FestivalList';
 import ContestSubmission from './pages/ContestSubmission';
 import NoticeBoard from './pages/NoticeBoard';
 import HomePage from './pages/HomePage'; 
+import Signup from './pages/Signup'
+import CustomizeFestival from './pages/CustomizeFestival';
 import './App.css';
 
 function App() {
   return (
     <Router>
       <div>
-        <h1>축제 및 공모전 사이트</h1>
+        <h1>축제를 제맛대로</h1>
         <Routes>
           <Route path="/" element={<HomePage />} /> 
           <Route path="/login" element={<Login />} />
           <Route path="/festivals" element={<FestivalList />} />
           <Route path="/contest" element={<ContestSubmission />} />
           <Route path="/notices" element={<NoticeBoard />} />
+          <Route path="/signup" element={<Signup/>}/>
+          <Route path='/customize-festival' element={<CustomizeFestival />} />
         </Routes>
       </div>
     </Router>

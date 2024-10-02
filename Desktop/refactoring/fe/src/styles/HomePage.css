@@ -39,3 +39,68 @@ header p {
   background-color: #ff4757;
   border-color: #ff4757;
 }
+
+/* 카루셀 이미지 스타일 */
+.carousel-item img {
+  max-height: 500px;
+  object-fit: cover;
+}
+
+.carousel-caption h5 {
+  font-size: 2rem;
+  color: #fff;
+}
+
+.carousel-caption p {
+  font-size: 1.2rem;
+  color: #f8f9fa;
+}
+
+/*배너 배경*/
+header {
+  background-color: #f8f9fa;
+}
+
+/* 진행 중인 축제 Section */
+.festivals-section {
+  padding: 60px 0;
+  background-color: #f1f1f1;
+}
+
+.festival-card {
+  border: none;
+  background-color: #fff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.festival-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.festival-card .card-title {
+  font-size: 1.5rem;
+  color: #2c3e50;
+}
+
+.festival-card .card-text {
+  font-size: 1rem;
+  color: #777;
+}
+
+.btn-primary {
+  background-color: #ff6b6b;
+  border-color: #ff6b6b;
+}
+
+.btn-primary:hover {
+  background-color: #ff4757;
+  border-color: #ff4757;
+}
+
+.homepage-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}

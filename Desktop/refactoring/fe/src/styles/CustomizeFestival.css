@@ -1,0 +1,58 @@
+.customize-festival-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #2c3e50;
+}
+
+.customize-form .form-group {
+  margin-bottom: 15px;
+}
+
+.customize-form .form-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.customize-form .form-group input,
+.customize-form .form-group select,
+.customize-form .form-group textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.preview-section {
+  margin-top: 30px;
+}
+
+.preview-card {
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  text-align: center;
+}
+
+.drop-area {
+  width: 100%;
+  height: 500px;
+  border: 1px solid black;
+  position: relative;
+  margin-top: 20px;
+}
+
+.store-block {
+  padding: 10px;
+  background-color: lightgray;
+  border: 1px solid #ddd;
+  cursor: move;
+}
