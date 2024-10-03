@@ -32,10 +32,4 @@ public class UserService {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("Unexpected User"));
     }
-
-    public UserInfoDto getUserById(Long userId) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new IllegalArgumentException(String.valueOf(userId)));
-        return new UserInfoDto(user.getName(), user.getEmail());
-    }
 }
