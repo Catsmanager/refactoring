@@ -1,6 +1,7 @@
 package com.uhm.refactoring.service;
 
 import com.uhm.refactoring.dto.AddUserRequest;
+import com.uhm.refactoring.dto.UserInfoDto;
 import com.uhm.refactoring.entity.User;
 import com.uhm.refactoring.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -30,5 +31,11 @@ public class UserService {
     public User findById(Long userId) {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("Unexpected User"));
+    }
+
+    public UserInfoDto getUserById(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException(String.valueOf(userId)));
+        return new UserInfoDto(user.getName(), user.getEmail());
     }
 }

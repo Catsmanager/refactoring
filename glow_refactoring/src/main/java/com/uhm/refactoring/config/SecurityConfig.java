@@ -32,8 +32,9 @@ public class SecurityConfig {
                 .formLogin(AbstractHttpConfigurer::disable)
                 .addFilterAfter(jsonUserAuthenticationFilter(), LogoutFilter.class)
                 .authorizeHttpRequests((authorize) -> authorize
-                        .requestMatchers("/signup", "/", "/login").permitAll()
-                        .anyRequest().authenticated())
+                        //.requestMatchers("/signup", "/", "/login").permitAll()
+                        //.anyRequest().authenticated())
+                        .anyRequest().permitAll()) //포스트맨 쓸 때
                 .logout((logout) -> logout
                         .invalidateHttpSession(true)
                         .logoutUrl("/logout")
