@@ -33,7 +33,7 @@ public class MyPageService {
     public List<PostDto> getPostsByUserId(Long userId) {
         List<Post> posts = postRepository.findByUserId(userId);
         return posts.stream()
-                .map(post -> new PostDto(post.getId(), post.getTitle(), post.getContent()))
+                .map(post -> new PostDto(post.getId(), post.getTitle(), post.getContent(), post.getCreatedAt()))
                 .collect(Collectors.toList());
     }
 }
