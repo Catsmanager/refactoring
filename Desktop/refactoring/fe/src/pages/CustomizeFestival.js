@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import DragDropContext from './DragDropContext';
 import DropArea from './DropArea';
+import StoreBlock from './StoreBlock'; 
 import '../styles/CustomizeFestival.css';
 
 function CustomizeFestival() {
@@ -11,12 +12,15 @@ function CustomizeFestival() {
   const [fontStyle, setFontStyle] = useState('Arial');
   const [backgroundImage, setBackgroundImage] = useState(null);
   const [previewImage, setPreviewImage] = useState('');
-  
+
   // 블록 상태 관리
   const [blocks, setBlocks] = useState([
-    { id: 1, name: '가게 1', left: 100, top: 100 },
-    { id: 2, name: '가게 2', left: 200, top: 200 },
+    { id: 1, name: '가게 1', left: 100, top: 100, image: null },
+    { id: 2, name: '가게 2', left: 200, top: 200, image: null },
   ]);
+
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [storeName, setStoreName] = useState('');
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -24,15 +28,18 @@ function CustomizeFestival() {
     setPreviewImage(URL.createObjectURL(file));
   };
 
-  // 블록 추가 함수
+  // 가게 블록 추가 함수 (선택한 이미지와 이름 추가)
   const addBlock = () => {
+    if (!selectedImage || !storeName) return;
     const newBlock = {
       id: blocks.length + 1,
-      name: `가게 ${blocks.length + 1}`,
+      name: storeName,
+      image: selectedImage,
       left: 50,
       top: 50,
     };
     setBlocks([...blocks, newBlock]);
+    setStoreName(''); // 이름 초기화
   };
 
   // 블록 위치 업데이트 함수
@@ -43,6 +50,13 @@ function CustomizeFestival() {
       )
     );
   };
+
+  // 가게 이미지 선택
+  const storeImages = [
+    { src: '/img/store1.png', alt: 'Store 1' },
+    { src: '/img/store1.png', alt: 'Store 2' },
+    { src: '/img/store1.png', alt: 'Store 3' },
+  ];
 
   return (
     <DragDropContext>
@@ -120,9 +134,40 @@ function CustomizeFestival() {
           </div>
         </div>
 
-        {/* 블록 추가 버튼 */}
+        {/* 가게 이미지 선택 */}
+        <div>
+          <h4>가게 이미지 선택</h4>
+          {storeImages.map((store, index) => (
+            <img
+              key={index}
+              src={store.src}
+              alt={store.alt}
+              onClick={() => setSelectedImage(store.src)} // 이미지 선택
+              style={{
+                width: '50px',
+                height: '50px',
+                margin: '10px',
+                cursor: 'pointer',
+                border: selectedImage === store.src ? '2px solid blue' : '1px solid gray',
+              }}
+            />
+          ))}
+        </div>
+
+        {/* 가게 이름 입력 */}
+        <div>
+          <h4>가게 이름</h4>
+          <input
+            type="text"
+            value={storeName}
+            onChange={(e) => setStoreName(e.target.value)}
+            placeholder="가게 이름을 입력하세요"
+          />
+        </div>
+
+        {/* 가게 블록 추가 버튼 */}
         <button onClick={addBlock} className="btn btn-primary">
-          가게 블록 추가
+          가게 추가
         </button>
 
         {/* 드롭 가능한 영역 */}

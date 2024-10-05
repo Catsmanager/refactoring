@@ -12,8 +12,7 @@ function HomePage() {
     // 축제 데이터를 가져오는 useEffect
     useEffect(() => {
       const fetchFestivals = async () => {
-        // 여기에 API 호출 코드가 들어갈 수 있습니다.
-        // 여기서는 예시 데이터를 사용하고 있습니다.
+        //api 호출코드
         const data = [
           { id: 1, title: "봄 축제", description: "화려한 봄 축제입니다.", image: festivalImage1 },
           { id: 2, title: "여름 축제", description: "뜨거운 여름 축제를 즐겨보세요.", image: festivalImage2 },
