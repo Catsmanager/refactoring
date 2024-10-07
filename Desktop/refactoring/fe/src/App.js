@@ -1,19 +1,26 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Login from './pages/Login';
-import FestivalList from './pages/FestivalList';
-import ContestSubmission from './pages/ContestSubmission';
-import NoticeBoard from './pages/NoticeBoard';
-import HomePage from './pages/HomePage'; 
-import Signup from './pages/Signup'
-import CustomizeFestival from './pages/CustomizeFestival';
 import './App.css';
+
+import Login from './pages/Login';
+import Signup from './pages/Signup'
+
+import HomePage from './pages/HomePage';
+
+import FestivalList from './pages/FestivalList';
+
+import NoticeBoard from './pages/NoticeBoard';
+
+import ContestSubmission from './pages/ContestSubmission';
+import CustomizeFestival from './pages/CustomizeFestival';
+
+import Header from './Header';
 
 function App() {
   return (
     <Router>
       <div>
-        <h1>축제를 제맛대로</h1>
+        <Header/>
         <Routes>
           <Route path="/" element={<HomePage />} /> 
           <Route path="/login" element={<Login />} />

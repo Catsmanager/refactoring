@@ -1,29 +1,41 @@
 import React, { useState } from 'react';
-import '../styles/Login.css'; 
+import '../styles/Login.css';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [loading, setLoading] = useState(false); 
-  const [error, setError] = useState(null); 
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true); 
+    setLoading(true);
     setError(null);
 
-   
-    console.log('Email:', email, 'Password:', password);
+    try {
+      const response = await fetch('http://localhost:5000/login', { // 백엔드 URL로 수정부탁
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
 
-   
-    setTimeout(() => {
-      if (email === 'test@example.com' && password === 'password123') {
+      const data = await response.json();
+
+      if (response.ok) {
+        // 로그인 성공 처리
         alert('로그인 성공!');
       } else {
-        setError('이메일 또는 비밀번호가 잘못되었습니다.');
+        // 로그인 실패 처리
+        setError(data.message || '이메일 또는 비밀번호가 잘못되었습니다.');
       }
-      setLoading(false); 
-    }, 1000);
+    } catch (err) {
+     
+      setError('서버와의 통신 중 오류가 발생했습니다.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

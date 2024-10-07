@@ -21,40 +21,42 @@ function StoreBlock({ id, left, top, name, image }) {
         position: 'absolute',
         left: `${left}px`,
         top: `${top}px`,
-        opacity: isDragging ? 0.5 : 1,
-        width: '100px', // 고정 너비 설정
-        height: '100px', // 고정 높이 설정
+        opacity: isDragging ? 0.7 : 1,
+        width: '120px',  // 블록과 이미지의 크기를 동일하게 설정
+        height: '120px', // 정사각형으로 설정
         cursor: 'move',
+        borderRadius: '10px',  // 모서리를 둥글게 처리
         border: '1px solid #ddd',
-        textAlign: 'center',
-        backgroundColor: 'lightgray', // 배경색 설정
+        overflow: 'hidden',  // 이미지나 텍스트가 블록을 벗어나지 않도록 설정
+        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',  // 그림자 추가
+        backgroundColor: 'white',
       }}
     >
       <div style={{ position: 'relative', width: '100%', height: '100%' }}>
-        {/* 이미지 표시 */}
+        {/* 이미지 표시 - 이미지 크기를 블록과 동일하게 맞춤 */}
         {image && (
           <img
             src={image}
             alt={name}
             style={{
               width: '100%',
-              height: '100%',
-              objectFit: 'cover',
+              height: '100%',  // 블록 전체를 차지하도록 설정
+              objectFit: 'cover',  // 이미지가 블록 크기에 맞춰 잘림
             }}
           />
         )}
 
-        {/* 이름을 이미지 위에 표시 */}
+        {/* 이미지 위에 이름 표시 */}
         <div
           style={{
             position: 'absolute',
             bottom: '0',
             width: '100%',
-            backgroundColor: 'rgba(0, 0, 0, 0.5)', // 반투명 배경
-            color: 'white', // 텍스트 색상
+            backgroundColor: 'rgba(0, 0, 0, 0.6)',  // 반투명 배경
+            color: 'white',
             textAlign: 'center',
             padding: '5px 0',
-            fontSize: '12px',
+            fontSize: '14px',
           }}
         >
           {name}

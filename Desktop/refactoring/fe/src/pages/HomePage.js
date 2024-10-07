@@ -29,7 +29,9 @@ function HomePage() {
       {/* 축제 배너 - 진행 중인 축제 */}
       <header className="text-center py-5 bg-light">
         <div className="container">
-          <h1 className="display-4">축제를 제 맞대로</h1>
+        <h1 className="display-4" style={{ fontFamily: 'establishRoomNo703OTF, sans-serif' }}>
+            축제를 제 맛대로
+        </h1>
           <p className="lead">여기에서 다양한 축제 정보를 확인하고 커스터마이징 할 수 있습니다.</p>
         </div>
 
@@ -87,6 +89,7 @@ function HomePage() {
                 </div>
               </div>
             </div>
+            
             <div className="col-lg-4 col-md-6 mb-4">
               <div className="card shadow-sm">
                 <div className="card-body">
@@ -96,6 +99,7 @@ function HomePage() {
                 </div>
               </div>
             </div>
+
             <div className="col-lg-4 col-md-6 mb-4">
               <div className="card shadow-sm">
                 <div className="card-body">
@@ -107,7 +111,7 @@ function HomePage() {
             </div>
           </div>
 
-          {/* 축제 커스터마이징으로 이동하는 링크 */}
+
           <div className="row mt-4">
             <div className="col-lg-12">
               <div className="card shadow-sm">
@@ -115,27 +119,6 @@ function HomePage() {
                   <h5 className="card-title">축제를 직접 커스터마이징하고 싶나요?</h5>
                   <p className="card-text">여기를 클릭하여 당신만의 축제를 만들어보세요!</p>
                   <Link to="/customize-festival" className="btn btn-success">축제 커스터마이징 하기</Link>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="row mt-4">
-            <div className="col-lg-6 mb-4">
-              <div className="card shadow-sm">
-                <div className="card-body">
-                  <h5 className="card-title">로그인</h5>
-                  <p className="card-text">로그인하여 더 많은 정보를 확인하세요.</p>
-                  <Link to="/login" className="btn btn-primary">로그인</Link>
-                </div>
-              </div>
-            </div>
-            <div className="col-lg-6 mb-4">
-              <div className="card shadow-sm">
-                <div className="card-body">
-                  <h5 className="card-title">회원가입</h5>
-                  <p className="card-text">아직 회원이 아니신가요? 지금 가입하세요.</p>
-                  <Link to="/signup" className="btn btn-primary">회원가입</Link>
                 </div>
               </div>
             </div>

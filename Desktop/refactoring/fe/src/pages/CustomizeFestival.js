@@ -12,11 +12,12 @@ function CustomizeFestival() {
   const [fontStyle, setFontStyle] = useState('Arial');
   const [backgroundImage, setBackgroundImage] = useState(null);
   const [previewImage, setPreviewImage] = useState('');
+  const [selectedBlockId, setSelectedBlockId] = useState(null); // 선택된 블록 ID
 
   // 블록 상태 관리
   const [blocks, setBlocks] = useState([
-    { id: 1, name: '가게 1', left: 100, top: 100, image: null },
-    { id: 2, name: '가게 2', left: 200, top: 200, image: null },
+    { id: 1, name: '가게 1', left: 100, top: 100, image: null, size: 100 },
+    { id: 2, name: '가게 2', left: 200, top: 200, image: null, size: 100 },
   ]);
 
   const [selectedImage, setSelectedImage] = useState(null);
@@ -37,6 +38,7 @@ function CustomizeFestival() {
       image: selectedImage,
       left: 50,
       top: 50,
+      size: 100,  // 기본 블록 크기
     };
     setBlocks([...blocks, newBlock]);
     setStoreName(''); // 이름 초기화
@@ -51,12 +53,31 @@ function CustomizeFestival() {
     );
   };
 
+  // 블록 삭제 함수
+  const deleteBlock = (id) => {
+    setBlocks(blocks.filter(block => block.id !== id));
+  };
+
+  // 블록 크기 업데이트 함수
+  const updateBlockSize = (size) => {
+    setBlocks((prevBlocks) =>
+      prevBlocks.map((block) =>
+        block.id === selectedBlockId ? { ...block, size } : block
+      )
+    );
+  };
+
   // 가게 이미지 선택
   const storeImages = [
     { src: '/img/store1.png', alt: 'Store 1' },
     { src: '/img/store1.png', alt: 'Store 2' },
     { src: '/img/store1.png', alt: 'Store 3' },
   ];
+
+  // 블록을 선택하면 그 블록의 ID를 selectedBlockId로 설정
+  const selectBlock = (id) => {
+    setSelectedBlockId(id);
+  };
 
   return (
     <DragDropContext>
@@ -97,19 +118,6 @@ function CustomizeFestival() {
             />
           </div>
           <div className="form-group">
-            <label>글꼴 선택:</label>
-            <select
-              value={fontStyle}
-              onChange={(e) => setFontStyle(e.target.value)}
-            >
-              <option value="Arial">Arial</option>
-              <option value="Courier New">Courier New</option>
-              <option value="Georgia">Georgia</option>
-              <option value="Times New Roman">Times New Roman</option>
-              <option value="Verdana">Verdana</option>
-            </select>
-          </div>
-          <div className="form-group">
             <label>배경 이미지 업로드:</label>
             <input type="file" onChange={handleImageChange} />
           </div>
@@ -144,9 +152,9 @@ function CustomizeFestival() {
               alt={store.alt}
               onClick={() => setSelectedImage(store.src)} // 이미지 선택
               style={{
-                width: '50px',
-                height: '50px',
-                margin: '10px',
+                width: '100px',
+                height: '100px',
+                margin: '5px',
                 cursor: 'pointer',
                 border: selectedImage === store.src ? '2px solid blue' : '1px solid gray',
               }}
@@ -170,8 +178,32 @@ function CustomizeFestival() {
           가게 추가
         </button>
 
+        {/* 블록 크기 조절 슬라이더 */}
+        {selectedBlockId && (
+          <div>
+            <h4>가게 크기 조절</h4>
+            <input
+              type="range"
+              min="50"
+              max="200"
+              value={blocks.find(block => block.id === selectedBlockId)?.size || 100}
+              onChange={(e) => updateBlockSize(Number(e.target.value))}
+            />
+          </div>
+        )}
+
         {/* 드롭 가능한 영역 */}
         <DropArea blocks={blocks} moveBlock={moveBlock} />
+
+        {/* 추가된 가게 블록들 */}
+        <div className="block-list">
+          {blocks.map(block => (
+            <div key={block.id} className="block">
+              <StoreBlock {...block} onClick={() => selectBlock(block.id)} />
+              <button onClick={() => deleteBlock(block.id)}>삭제</button>
+            </div>
+          ))}
+        </div>
       </div>
     </DragDropContext>
   );

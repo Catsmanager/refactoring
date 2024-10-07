@@ -1,21 +1,27 @@
 /* 기본 스타일 설정 */
-body {
-  font-family: 'Arial', sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #f4f4f4;
-  color: #333;
+
+@font-face {
+  font-family: 'GabiaGosran-Regular';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2409-2@1.0/GabiaGosran-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
 }
+
+body {
+  font-family: 'GabiaGosran-Regular', sans-serif;
+}
+
+
 
 /* 페이지 레이아웃 */
 div {
   text-align: center;
-  padding: 20px;
+  padding:0;
 }
 
 /* 제목 스타일 */
 h1 {
-  color: #2c3e50;
+  color: #000000;
   font-size: 2.5rem;
   margin-bottom: 20px;
 }
