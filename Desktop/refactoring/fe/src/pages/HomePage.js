@@ -1,9 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { Swiper, SwiperSlide } from 'swiper/react'
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 import '../styles/HomePage.css'; 
-import festivalImage1 from '../img/festival1.png';
-import festivalImage2 from '../img/festival1.png';
-import festivalImage3 from '../img/festival1.png';
+import festivalImage1 from '../img/도봉옛길.png';
+import festivalImage2 from '../img/라벤더.png';
+import festivalImage3 from '../img/무등산.png';
+import festivalImage4 from '../img/사랑과나눔.png';
+import festivalImage5 from '../img/세계인.png';
+import festivalImage6 from '../img/수제맥주.png';
+import festivalImage7 from '../img/앞산.png';
+import festivalImage8 from '../img/앨리스.png';
+import festivalImage9 from '../img/약령시.png';
+import festivalImage10 from '../img/여름꽃.png';
+
+
 
 function HomePage() {
     // 진행 중인 축제 데이터를 상태로 관리
@@ -14,9 +27,10 @@ function HomePage() {
       const fetchFestivals = async () => {
         //api 호출코드
         const data = [
-          { id: 1, title: "봄 축제", description: "화려한 봄 축제입니다.", image: festivalImage1 },
-          { id: 2, title: "여름 축제", description: "뜨거운 여름 축제를 즐겨보세요.", image: festivalImage2 },
-          { id: 3, title: "가을 축제", description: "가을 풍경을 배경으로 즐길 수 있는 축제입니다.", image: festivalImage3 },
+          { id: 1, image: festivalImage1 },
+          { id: 2, image: festivalImage2 },
+          { id: 4, image: festivalImage4 },
+          { id: 5, image: festivalImage5 },
         ];
         setFestivals(data);
       };
@@ -28,12 +42,6 @@ function HomePage() {
     <div className="homepage-container">
       {/* 축제 배너 - 진행 중인 축제 */}
       <header className="text-center py-5 bg-light">
-        <div className="container">
-        <h1 className="display-4" style={{ fontFamily: 'establishRoomNo703OTF, sans-serif' }}>
-            축제를 제 맛대로
-        </h1>
-          <p className="lead">여기에서 다양한 축제 정보를 확인하고 커스터마이징 할 수 있습니다.</p>
-        </div>
 
         {/* 진행 중인 축제 배너 - 카루셀 */}
         <div id="festivalCarousel" className="carousel slide" data-ride="carousel">
@@ -41,28 +49,45 @@ function HomePage() {
             <li data-target="#festivalCarousel" data-slide-to="0" className="active"></li>
             <li data-target="#festivalCarousel" data-slide-to="1"></li>
             <li data-target="#festivalCarousel" data-slide-to="2"></li>
+            <li data-target="#festivalCarousel" data-slide-to="3"></li>
+            <li data-target="#festivalCarousel" data-slide-to="4"></li>
+            <li data-target="#festivalCarousel" data-slide-to="5"></li>
+            <li data-target="#festivalCarousel" data-slide-to="6"></li>
+            <li data-target="#festivalCarousel" data-slide-to="7"></li>
+            <li data-target="#festivalCarousel" data-slide-to="8"></li>
+            <li data-target="#festivalCarousel" data-slide-to="9"></li>
+
           </ol>
           <div className="carousel-inner">
             <div className="carousel-item active">
               <img src={festivalImage1} className="d-block w-100" alt="Festival 1" />
-              <div className="carousel-caption d-none d-md-block">
-                <h5>봄 축제</h5>
-                <p>화려한 봄 축제를 즐겨보세요.</p>
-              </div>
             </div>
             <div className="carousel-item">
               <img src={festivalImage2} className="d-block w-100" alt="Festival 2" />
-              <div className="carousel-caption d-none d-md-block">
-                <h5>여름 축제</h5>
-                <p>여름의 열기를 느껴보세요.</p>
-              </div>
             </div>
             <div className="carousel-item">
               <img src={festivalImage3} className="d-block w-100" alt="Festival 3" />
-              <div className="carousel-caption d-none d-md-block">
-                <h5>가을 축제</h5>
-                <p>아름다운 가을 축제를 만끽하세요.</p>
-              </div>
+            </div>
+            <div className="carousel-item">
+              <img src={festivalImage4} className="d-block w-100" alt="Festival 4" />
+            </div>
+            <div className="carousel-item">
+              <img src={festivalImage5} className="d-block w-100" alt="Festival 5" />
+            </div>
+            <div className="carousel-item">
+              <img src={festivalImage6} className="d-block w-100" alt="Festival 6" />
+            </div>
+            <div className="carousel-item">
+              <img src={festivalImage7} className="d-block w-100" alt="Festival 7" />
+            </div>
+            <div className="carousel-item">
+              <img src={festivalImage8} className="d-block w-100" alt="Festival 8" />
+            </div>
+            <div className="carousel-item">
+              <img src={festivalImage9} className="d-block w-100" alt="Festival 9" />
+            </div>
+            <div className="carousel-item">
+              <img src={festivalImage10} className="d-block w-100" alt="Festival 10" />
             </div>
           </div>
           <a className="carousel-control-prev" href="#festivalCarousel" role="button" data-slide="prev">
@@ -127,25 +152,33 @@ function HomePage() {
       </section>
 
       {/* 진행 중인 축제 목록 Section */}
-      <section className="festivals-section py-5 bg-light">
-        <div className="container">
-          <h2 className="section-title text-center">진행 중인 축제</h2>
-          <div className="row">
-            {festivals.map(festival => (
-              <div className="col-lg-4 col-md-6 mb-4" key={festival.id}>
-                <div className="card festival-card">
-                  <img src={festival.image} className="card-img-top" alt={festival.title} />
-                  <div className="card-body">
-                    <h5 className="card-title">{festival.title}</h5>
-                    <p className="card-text">{festival.description}</p>
-                    <Link to={`/festivals/${festival.id}`} className="btn btn-primary">자세히 보기</Link>
-                  </div>
+      <section className="festivals-section py-5">
+      <div className="container">
+        <h2 className="section-title text-center">마감임박 축제</h2>
+        <Swiper
+          spaceBetween={20}  // 카드 간 간격 설정
+          slidesPerView={3}   // 한 화면에 보일 카드 개수
+          navigation         // 이전/다음 버튼 활성화
+          pagination={{ clickable: true }} // 하단의 페이지네이션 활성화
+        >
+          {festivals.map(festival => (
+            <SwiperSlide key={festival.id}>
+              <div className="festival-card">
+                <img src={festival.image} className="card-img-top" alt={festival.title} />
+                <div className="card-body">
+                  <h5 className="card-title">{festival.title}</h5>
+                  <p className="card-text">{festival.description}</p>
+                  <Link to={`/festivals/${festival.id}`} className="btn btn-primary">
+                    자세히 보기
+                  </Link>
+                  <p className="text-danger mt-3">마감까지 D-5</p>
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
+    </section>
     </div>
   );
 }

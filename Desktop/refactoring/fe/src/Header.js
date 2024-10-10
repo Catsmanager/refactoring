@@ -4,6 +4,8 @@ import { FaUserCircle } from 'react-icons/fa'; // 프로필 아이콘 추가
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 
+import './Header.css';
+
 function Header() {
   const [modalType, setModalType] = useState('login');
   const navigate = useNavigate();
@@ -15,18 +17,20 @@ function Header() {
   };
 
   return (
-    <header className="header-container">
-      <div className="container d-flex justify-content-between align-items-center py-3">
-        <div className="logo" onClick={() => navigate('/')}>MyApp</div>
-        <div>
+    <header className="header-container bookly-header py-3">
+      <div className="container d-flex justify-content-between align-items-center">
+        <div className="logo" onClick={() => navigate('/')} style={{ cursor: 'pointer', fontWeight: 'bold', fontSize: '1.8rem', color: '#333' }}>
+          축제를 제맛대로
+        </div>
+        <div className="d-flex align-items-center">
           <button
-            className="btn btn-primary mr-2"
+            className="btn bookly-btn-primary mr-2"
             onClick={() => openModal('login')}
           >
             로그인
           </button>
           <button
-            className="btn btn-secondary mr-2"
+            className="btn bookly-btn-secondary mr-2"
             onClick={() => openModal('signup')}
           >
             회원가입
@@ -40,6 +44,7 @@ function Header() {
         </div>
       </div>
 
+      {/* Modal */}
       <div
         className="modal fade"
         id="authModal"
@@ -65,6 +70,15 @@ function Header() {
             </div>
             <div className="modal-body">
               {modalType === 'login' ? <Login /> : <Signup />}
+            </div>
+            <div className="modal-footer">
+              <button
+                type="button"
+                className="btn bookly-btn-secondary"
+                data-dismiss="modal"
+              >
+                닫기
+              </button>
             </div>
           </div>
         </div>

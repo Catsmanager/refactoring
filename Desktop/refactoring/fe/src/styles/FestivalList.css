@@ -1,55 +1,89 @@
-
-.festival-list-container {
-  padding: 20px;
-  text-align: center;
+/* 기본 스타일 설정 */
+@font-face {
+  font-family: 'GabiaGosran-Regular';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2409-2@1.0/GabiaGosran-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
 }
 
-h2 {
-  font-size: 2rem;
-  color: #2c3e50;
+body {
+  font-family: 'GabiaGosran-Regular', sans-serif;
+  background-color: #f8f9fa; /* 페이지 전체의 배경색 설정 */
+  margin: 0;
+  padding: 0;
+  color: #2c3e50; /* 기본 텍스트 색상 통일 */
+}
+
+/* 페이지 레이아웃 */
+div {
+  text-align: center;
+  padding: 0;
+}
+
+/* 제목 스타일 */
+h1 {
+  color: #333; /* 더 중립적인 색상 적용 */
+  font-size: 2.5rem;
   margin-bottom: 20px;
 }
 
-
-.festival-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 20px;
-}
-
-
-.festival-card {
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  text-align: left;
-}
-
-.festival-poster {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-}
-
-.festival-info {
-  padding: 15px;
-}
-
-.festival-info h3 {
-  font-size: 1.5rem;
-  color: #2980b9;
-  margin: 10px 0;
-}
-
-.festival-info p {
-  color: #7f8c8d;
-  font-size: 1rem;
-  line-height: 1.5;
-}
-
-
-div {
+/* 본문 텍스트 스타일 */
+p {
   font-size: 1.2rem;
-  color: #e74c3c;
+  margin-bottom: 30px;
+  color: #7f8c8d;
 }
+
+/* 네비게이션 메뉴 스타일 */
+nav ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+nav ul li {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+nav ul li:last-child {
+  margin-right: 0;
+}
+
+/* 링크 스타일 */
+nav ul li a {
+  text-decoration: none;
+  color: #007bff; /* Bootstrap의 primary 색상으로 통일 */
+  font-size: 1.2rem;
+  padding: 10px 20px;
+  border: 2px solid transparent;
+  transition: all 0.3s ease-in-out;
+}
+
+nav ul li a:hover {
+  color: #fff;
+  background-color: #007bff; /* Bootstrap의 primary 색상 */
+  border: 2px solid #007bff;
+  border-radius: 5px;
+}
+
+/* 모바일 환경 대응 */
+@media (max-width: 768px) {
+  nav ul li {
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  nav ul li a {
+    display: block;
+    padding: 10px 0;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  p {
+    font-size: 1rem;
+  }
+}
+
