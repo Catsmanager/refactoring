@@ -22,7 +22,7 @@ public class MyPageController {
         this.myPageService = myPageService;
     }
 
-    //유저가 쓴 글 목록
+    //본인이 쓴 글 목록
     @GetMapping("/mypage/{userId}")
     public ResponseEntity<MyPageResponse> getMyPage(@PathVariable Long userId) {
         UserInfoDto userInfoDto = myPageService.getUserById(userId);
@@ -30,5 +30,13 @@ public class MyPageController {
 
         MyPageResponse response = new MyPageResponse(userInfoDto, posts);
         return ResponseEntity.ok(response);
+    }
+
+    //본인이 쓴 글 조회
+    @GetMapping("mypage/{userId}/{postId}")
+    public ResponseEntity<PostDto> openMyPost(@PathVariable(name = "userId") Long userId,
+                                              @PathVariable(name = "postId") Long postId) {
+        PostDto post = myPageService.openPost(postId);
+        return ResponseEntity.ok(post);
     }
 }

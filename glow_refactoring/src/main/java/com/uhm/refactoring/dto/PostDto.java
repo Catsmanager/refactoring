@@ -1,5 +1,6 @@
 package com.uhm.refactoring.dto;
 
+import com.uhm.refactoring.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
