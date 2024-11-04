@@ -22,6 +22,7 @@ public class MyPageController {
         this.myPageService = myPageService;
     }
 
+    //유저가 쓴 글 목록
     @GetMapping("/mypage/{userId}")
     public ResponseEntity<MyPageResponse> getMyPage(@PathVariable Long userId) {
         UserInfoDto userInfoDto = myPageService.getUserById(userId);

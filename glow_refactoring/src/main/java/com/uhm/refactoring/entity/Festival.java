@@ -1,7 +1,6 @@
 package com.uhm.refactoring.entity;
 
 import jakarta.persistence.*;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,13 +9,16 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Setter
-@Table(name = "post")
-public class Post {
+@Table(name = "festivals")
+public class Festival {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+
+    @Column(name = "host")
+    private String host;
 
     @Column(name = "title")
     private String title;
@@ -24,12 +26,9 @@ public class Post {
     @Column(name = "content")
     private String content;
 
+    @Column(name = "poster")
+    private String poster;
+
     @Column(name = "created_at")
     private LocalDateTime createdAt;
-
-    @Column(name = "user_id")
-    private Long userId;
-
-    @Column(name = "festival_id")
-    private Long festivalId;
 }
