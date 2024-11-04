@@ -27,9 +27,11 @@ public class Post {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    @Column(name = "user_id")
-    private Long userId;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    @Column(name = "festival_id")
-    private Long festivalId;
+    @ManyToOne
+    @JoinColumn(name = "festival_id")
+    private Festival festival;
 }
