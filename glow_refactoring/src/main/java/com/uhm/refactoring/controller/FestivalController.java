@@ -26,6 +26,7 @@ public class FestivalController {
 
     //축제 목록
     @GetMapping("/festivals")
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<List<FestivalDto>> getFestivals() {
         List<FestivalDto> festivals = festivalService.getFestivals();
         return ResponseEntity.ok(festivals);
@@ -33,6 +34,7 @@ public class FestivalController {
 
     //축제 열람
     @GetMapping("/festivals/{id}")
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<FestivalDto> getFestival(@PathVariable(name = "id") Long id) {
         FestivalDto festival = festivalService.openFestival(id);
         return ResponseEntity.ok(festival);
@@ -40,6 +42,7 @@ public class FestivalController {
 
     //공모전 게시글 작성
     @PostMapping("/festivals/{id}")
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<PostDto> createPost(@PathVariable(name = "id") Long id,
                                               @RequestBody AddPostRequest addPostRequest,
                                               Principal principal) {

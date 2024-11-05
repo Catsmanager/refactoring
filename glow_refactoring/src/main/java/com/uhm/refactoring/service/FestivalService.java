@@ -64,6 +64,7 @@ public class FestivalService {
         post.setCreatedAt(LocalDateTime.now());
 
         Post savedPost = postRepository.save(post);
-        return new PostDto(savedPost.getId(), savedPost.getTitle(), savedPost.getContent(), savedPost.getCreatedAt());
+        return new PostDto(savedPost.getId(), savedPost.getTitle(), savedPost.getContent(), savedPost.getCreatedAt(),
+                savedPost.getUser());
     }
 }

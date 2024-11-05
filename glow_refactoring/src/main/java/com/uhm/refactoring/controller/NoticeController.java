@@ -4,6 +4,7 @@ import com.uhm.refactoring.dto.NoticeDto;
 import com.uhm.refactoring.service.NoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,6 +22,7 @@ public class NoticeController {
 
     //공지 목록
     @GetMapping("/notices")
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<List<NoticeDto>> getNotices() {
         List<NoticeDto> notices = noticeService.getNotices();
         return ResponseEntity.ok(notices);
@@ -28,6 +30,7 @@ public class NoticeController {
 
     //공지 열람
     @GetMapping("/notices/{id}")
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<NoticeDto> getNotice(@PathVariable(name = "id") Long id) {
         NoticeDto notice = noticeService.openNotice(id);
         return ResponseEntity.ok(notice);

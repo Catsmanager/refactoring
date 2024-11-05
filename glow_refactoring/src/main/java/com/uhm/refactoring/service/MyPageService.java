@@ -34,7 +34,8 @@ public class MyPageService {
     public List<PostDto> getPostsByUserId(Long userId) {
         List<Post> posts = postRepository.findByUserId(userId);
         return posts.stream()
-                .map(post -> new PostDto(post.getId(), post.getTitle(), post.getContent(), post.getCreatedAt()))
+                .map(post -> new PostDto(post.getId(), post.getTitle(), post.getContent(), post.getCreatedAt(),
+                        post.getUser()))
                 .collect(Collectors.toList());
     }
 
@@ -43,6 +44,6 @@ public class MyPageService {
         Post post = postRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("invalid post id : " + id));
 
-        return new PostDto(post.getId(), post.getTitle(), post.getContent(), post.getCreatedAt());
+        return new PostDto(post.getId(), post.getTitle(), post.getContent(), post.getCreatedAt(), post.getUser());
     }
 }

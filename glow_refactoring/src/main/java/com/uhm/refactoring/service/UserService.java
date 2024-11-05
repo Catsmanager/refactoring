@@ -1,7 +1,6 @@
 package com.uhm.refactoring.service;
 
 import com.uhm.refactoring.dto.AddUserRequest;
-import com.uhm.refactoring.dto.UserInfoDto;
 import com.uhm.refactoring.entity.User;
 import com.uhm.refactoring.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
