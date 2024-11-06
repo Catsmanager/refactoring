@@ -104,7 +104,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.addAllowedOrigin("http://192.168.45.70:3000"); // React 앱 도메인 허용
+        configuration.addAllowedOrigin("http://localhost:3000"); // React 앱 도메인 허용
         configuration.addAllowedMethod("*"); // 모든 HTTP 메서드 허용
         configuration.addAllowedHeader("*"); // 모든 헤더 허용
         configuration.setAllowCredentials(true); // 쿠키 및 인증 정보 허용
