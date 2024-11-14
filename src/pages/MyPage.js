@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-
+import '../styles/MyPage.css'; 
 function MyPage() {
   const { userId } = useParams();
   const [userData, setUserData] = useState(null);
@@ -53,15 +53,15 @@ function MyPage() {
       <h2>마이페이지</h2>
       {userData ? (
         <div>
-          <p><strong>이름:</strong> {userData.userInfoDto.name}</p>
-          <p><strong>이메일:</strong> {userData.userInfoDto.email}</p>
-          <p><strong>전화번호:</strong> {userData.userInfoDto.phone}</p>
+          <p><strong>이름:</strong> {userData.Name}</p> {/* 수정 필요 */}
+          <p><strong>이메일:</strong> {userData.Email}</p> {/* 수정 필요 */}
+          <p><strong>전화번호:</strong> {userData.Phone}</p> {/* 수정 필요 */}
           <h3>게시물 목록:</h3>
           {posts.length > 0 ? (
             <ul>
               {posts.map((post) => (
-                <li key={post.postId} onClick={() => handlePostClick(post.postId)}>
-                  {post.title}
+                <li key={post.Id} onClick={() => handlePostClick(post.Id)}> {/* 수정 필요 */}
+                  {post.Title} {/* 수정 필요 */}
                 </li>
               ))}
             </ul>
@@ -71,8 +71,8 @@ function MyPage() {
           {selectedPost && (
             <div>
               <h3>선택한 게시물</h3>
-              <p><strong>제목:</strong> {selectedPost.title}</p>
-              <p><strong>내용:</strong> {selectedPost.content}</p>
+              <p><strong>제목:</strong> {selectedPost.Title}</p>
+              <p><strong>내용:</strong> {selectedPost.Content}</p> {/*확인 */}
             </div>
           )}
         </div>

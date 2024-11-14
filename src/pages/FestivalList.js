@@ -62,20 +62,21 @@ function FestivalList() {
         <p>현재 등록된 축제가 없습니다.</p>
       ) : (
         <div className="festival-list">
-          {festivals.map((festival, index) => {
-            const imageUrl = `http://192.168.45.177:8080/images/${festival.poster}`;
+          {festivals.map((festival) => {
+            const imageUrl = `http://192.168.45.177:8080/images/${festival.Poster}`;
             return (
-              <div key={index} className="festival-card">
+              <div key={festival.Id} className="festival-card">
                 <img
                   src={imageUrl}
-                  alt={festival.title || '축제 이미지'}
+                  alt={festival.Title || '축제 이미지'}
                   className="festival-poster"
-                  onClick={() => handleFestivalClick(festival.id)} // 클릭 시 축제 열람
+                  onClick={() => handleFestivalClick(festival.Id)} // 클릭 시 축제 열람
                 />
                 <div className="festival-info">
-                  <h3>{festival.title}</h3>
-                  <p>{festival.description}</p>
-                  <button onClick={() => handleWritePost(festival.id)}>공모글 작성</button> {/* 공모글 작성 버튼 */}
+                  <h3>{festival.Title}</h3>
+                  <p><strong>주최:</strong> {festival.Host}</p>
+                  <p>{festival.Content}</p>
+                  <button onClick={() => handleWritePost(festival.Id)}>공모글 작성</button> {/* 공모글 작성 버튼 */}
                 </div>
               </div>
             );
@@ -87,4 +88,5 @@ function FestivalList() {
 }
 
 export default FestivalList;
+
 

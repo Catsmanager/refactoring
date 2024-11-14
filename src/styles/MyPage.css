@@ -1,0 +1,72 @@
+
+.my-page-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  font-family: 'Arial', sans-serif;
+}
+
+
+h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.user-info {
+  margin-bottom: 20px;
+}
+
+.user-info p {
+  font-size: 1rem;
+  color: #555;
+  margin: 5px 0;
+  font-weight: 500;
+}
+
+.posts-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.posts-list li {
+  padding: 10px;
+  margin: 8px 0;
+  background-color: #fff;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.posts-list li:hover {
+  background-color: #f0f8ff;
+  transform: translateY(-2px);
+}
+
+.posts-list li strong {
+  color: #333;
+}
+
+
+.selected-post {
+  margin-top: 20px;
+  padding-top: 10px;
+  border-top: 1px solid #ddd;
+}
+
+.selected-post h3 {
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.selected-post p {
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.5;
+}

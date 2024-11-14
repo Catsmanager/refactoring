@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-
+import '../styles/NoticeBoard.css'; 
 function NoticeBoard() {
   const [notices, setNotices] = useState([]);
   const [selectedNotice, setSelectedNotice] = useState(null);
@@ -51,15 +51,19 @@ function NoticeBoard() {
         <p>현재 등록된 공지사항이 없습니다.</p>
       ) : (
         notices.map((notice) => (
-          <div key={notice.id} onClick={() => handleNoticeClick(notice.id)} style={{ cursor: 'pointer', marginBottom: '10px' }}>
-            <h3>{notice.title}</h3>
+          <div key={notice.Id} onClick={() => handleNoticeClick(notice.Id)} style={{ cursor: 'pointer', marginBottom: '10px' }}>
+            <h3>{notice.Title}</h3>
+            <p><em>작성자: {notice.Author}</em></p> {/* 작성자 정보 표시 */}
+            <p>작성일: {new Date(notice.Created_At).toLocaleDateString()}</p> {/* 작성일 표시 */}
           </div>
         ))
       )}
       {selectedNotice && (
         <div style={{ marginTop: '20px', borderTop: '1px solid #ddd', paddingTop: '10px' }}>
-          <h3>{selectedNotice.title}</h3>
-          <p>{selectedNotice.content}</p>
+          <h3>{selectedNotice.Title}</h3>
+          <p><em>작성자: {selectedNotice.Author}</em></p>
+          <p>{selectedNotice.Content}</p>
+          <p>작성일: {new Date(selectedNotice.Created_At).toLocaleDateString()}</p> {/* 작성일 표시 */}
         </div>
       )}
     </div>
@@ -67,4 +71,5 @@ function NoticeBoard() {
 }
 
 export default NoticeBoard;
+
 

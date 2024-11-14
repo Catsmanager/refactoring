@@ -3,13 +3,15 @@ import { useParams, useNavigate } from 'react-router-dom';
 import '../styles/ContestSubmission.css'; 
 
 function ContestSubmission() {
-  const { id } = useParams();
+  const { id: Festival_Id } = useParams(); // Festival_Id 가져오기
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+
+  //const User_Id = 1; // 현재 로그인된 사용자의 ID
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
@@ -22,13 +24,15 @@ function ContestSubmission() {
 
     try {
       const formData = new FormData();
-      formData.append('title', title);
-      formData.append('content', content);
+      formData.append('Title', title);
+      formData.append('Content', content);
+      formData.append('User_Id', User_Id); // User_Id 추가
+      formData.append('Festival_Id', Festival_Id); // Festival_Id 추가
       if (file) {
-        formData.append('file', file);
+        formData.append('File', file); // 파일 추가
       }
 
-      const response = await fetch(`http://172.20.10.3:8080/festivals/${id}`, {
+      const response = await fetch(`http://172.20.10.3:8080/posts`, { // 공모글 저장 경로
         method: 'POST',
         body: formData,
       });
@@ -38,7 +42,7 @@ function ContestSubmission() {
       }
 
       alert('공모글이 성공적으로 제출되었습니다!');
-      navigate(`/festivals/${id}`);
+      navigate(`/festivals/${Festival_Id}`); // 축제 페이지로 이동
     } catch (err) {
       setError(err.message || '공모글 제출 중 오류가 발생했습니다.');
     } finally {
