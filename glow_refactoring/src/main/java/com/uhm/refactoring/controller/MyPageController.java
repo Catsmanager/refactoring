@@ -28,9 +28,10 @@ public class MyPageController {
     }
 
     //본인이 쓴 글 목록
-    @GetMapping("/mypage/{userId}")
+    @GetMapping("/mypage")
     @CrossOrigin(origins = "http://localhost:3000")
-    public ResponseEntity<MyPageResponse> getMyPage(@PathVariable Long userId) {
+    public ResponseEntity<MyPageResponse> getMyPage(Principal principal) {
+        Long userId = userService.findIdByName(principal.getName());
         UserInfoDto userInfoDto = myPageService.getUserById(userId);
         List<PostDto> posts = myPageService.getPostsByUserId(userId);
 
@@ -39,11 +40,11 @@ public class MyPageController {
     }
 
     //본인이 쓴 글 조회
-    @GetMapping("/mypage/{userId}/{postId}")
+    @GetMapping("/mypage/{postId}")
     @CrossOrigin(origins = "http://localhost:3000")
-    public ResponseEntity<PostDto> openMyPost(@PathVariable(name = "userId") Long userId,
-                                              @PathVariable(name = "postId") Long postId,
+    public ResponseEntity<PostDto> openMyPost(@PathVariable(name = "postId") Long postId,
                                               Principal principal) {
+        Long userId = userService.findIdByName(principal.getName());
         PostDto post = myPageService.openPost(postId);
         if (!userService.findIdByName(principal.getName()).equals(userId)) {
             throw new IllegalStateException("No permission to this post!");
