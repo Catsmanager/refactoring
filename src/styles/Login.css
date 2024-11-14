@@ -1,0 +1,86 @@
+
+.login-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+
+h2 {
+  color: #2c3e50;
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+
+.login-form label {
+  display: block;
+  margin-bottom: 15px;
+  font-size: 1.1rem;
+  color: #34495e;
+}
+
+.login-form input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.login-form button {
+  width: 100%;
+  padding: 10px;
+  background-color: #2980b9;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login-form button:disabled {
+  background-color: #95a5a6;
+  cursor: not-allowed;
+}
+
+.login-form button:hover:enabled {
+  background-color: #1c6693;
+}
+
+
+.error-message {
+  color: #e74c3c;
+  margin-top: 10px;
+  font-size: 1rem;
+}
+
+/* 모바일 대응 */
+@media (max-width: 600px) {
+  .login-container {
+    padding: 15px;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  .login-form label {
+    font-size: 1rem;
+  }
+
+  .login-form input {
+    font-size: 0.9rem;
+  }
+
+  .login-form button {
+    font-size: 1rem;
+  }
+}

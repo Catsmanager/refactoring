@@ -1,0 +1,40 @@
+.footer-container {
+  background-color: #343a40;
+  color: #fff;
+  padding: 40px 0;
+}
+
+.footer-container h5 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+.footer-container p {
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.footer-container a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.footer-container a:hover {
+  color: #f8d7da; /* 링크 hover 시 부드러운 효과 */
+}
+
+.social-icons a {
+  font-size: 1.5rem;
+  margin-right: 15px;
+  transition: color 0.3s ease;
+}
+
+.social-icons a:hover {
+  color: #007bff;
+}
+
+.text-center p {
+  margin-top: 20px;
+  font-size: 0.8rem;
+  color: #ccc;
+}

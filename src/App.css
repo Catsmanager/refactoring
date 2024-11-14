@@ -1,0 +1,88 @@
+/* 기본 스타일 설정 */
+
+@font-face {
+  font-family: 'GabiaGosran-Regular';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2409-2@1.0/GabiaGosran-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  font-family: 'GabiaGosran-Regular', sans-serif;
+}
+
+
+
+/* 페이지 레이아웃 */
+div {
+  text-align: center;
+  padding:0;
+}
+
+/* 제목 스타일 */
+h1 {
+  color: #000000;
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+/* 본문 텍스트 스타일 */
+p {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+  color: #7f8c8d;
+}
+
+/* 네비게이션 메뉴 스타일 */
+nav ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+nav ul li {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+nav ul li:last-child {
+  margin-right: 0;
+}
+
+/* 링크 스타일 */
+nav ul li a {
+  text-decoration: none;
+  color: #2980b9;
+  font-size: 1.2rem;
+  padding: 10px 20px;
+  border: 2px solid transparent;
+  transition: all 0.3s ease-in-out;
+}
+
+nav ul li a:hover {
+  color: #fff;
+  background-color: #2980b9;
+  border: 2px solid #2980b9;
+  border-radius: 5px;
+}
+
+/* 모바일 환경 대응 */
+@media (max-width: 768px) {
+  nav ul li {
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  nav ul li a {
+    display: block;
+    padding: 10px 0;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  p {
+    font-size: 1rem;
+  }
+}
+

@@ -1,0 +1,163 @@
+@font-face {
+  font-family: 'TTHakgyoansimYeohaengR';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2402_keris@1.0/TTHakgyoansimYeohaengR.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'HakgyoansimSantteutdotumL';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-2@1.0/HakgyoansimSantteutdotumL.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+}
+
+.custom-font {
+  font-family: 'HakgyoansimSantteutdotumL', sans-serif;
+  font-weight:bold;
+}
+
+
+.homepage-container {
+  background-color: #f8f9fa; 
+  padding: 0;
+  margin: 0;
+}
+
+
+header {
+  background-color: #ffffff; 
+}
+
+.features {
+  background-color: #f8f9fa; 
+}
+
+.festivals-section {
+  background-color: #f8f9fa; 
+}
+
+
+.carousel-indicators li {
+  background-color: #333; 
+}
+
+.carousel-indicators .active {
+  background-color: #007bff;
+}
+
+.carousel-item img {
+  width:80%;
+  height:400px;
+  object-fit:contain;
+}
+
+.carousel-caption {
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.carousel-caption h5 {
+  font-size: 2rem;
+  color: #000000;
+}
+
+.carousel-caption p {
+  font-size: 1.2rem;
+  color: #000000;
+}
+
+/* 카드 디자인 */
+.card {
+  border: none;
+  border-radius: 15px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.festival-card img {
+  height: 200px;
+  object-fit: cover;
+}
+
+.festival-card .card-title {
+  font-size: 1.5rem;
+  color: #2c3e50;
+}
+
+.festival-card .card-text {
+  font-size: 1rem;
+  color: #777;
+}
+
+.btn-primary {
+  background-color: #ff6b6b;
+  border-color: #ff6b6b;
+}
+
+.btn-primary:hover {
+  background-color: #ff4757;
+  border-color: #ff4757;
+}
+
+/* 섹션 타이틀 */
+.section-title {
+  font-family: 'TTHakgyoansimYeohaengR', sans-serif;
+  font-size: 2.5rem;
+  margin-bottom: 40px;
+  color: #dc3545;
+  font-weight:bold;
+  text-transform:uppercase;
+}
+
+/* 축제 섹션 */
+.festivals-section {
+  padding: 80px 0;
+  overflow-x: auto;
+  white-space:nowrap;
+}
+
+.festivals-section .festival-card {
+  display:inline-block;
+  height: 100%;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-right: 20px; 
+  width: 300px; 
+}
+
+.festival-card img {
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  height: 200px;
+  object-fit: cover;
+}
+
+.festival-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8x 30px rgba(0, 0, 0, 0.2);
+}
+
+.festivals-section .card-body {
+  padding: 15px;
+}
+
+.features .card-title {
+  font-size: 1.25rem;
+  color: #007bff;
+}
+
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  filter: invert(100%);
+}
