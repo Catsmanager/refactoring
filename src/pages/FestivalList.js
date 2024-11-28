@@ -1,36 +1,38 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom'; 
-import '../styles/FestivalList.css';
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "../styles/FestivalList.css";
 
 function FestivalList() {
   const [festivals, setFestivals] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://172.20.10.3:8080/festivals');
+        const response = await fetch("http://172.20.10.3:8080/festivals");
         if (!response.ok) {
           if (response.status === 404) {
-            throw new Error('축제를 찾을 수 없습니다.');
+            throw new Error("축제를 찾을 수 없습니다.");
           } else if (response.status === 500) {
-            throw new Error('서버 오류가 발생했습니다.');
+            throw new Error("서버 오류가 발생했습니다.");
           } else {
-            throw new Error('데이터를 가져오는 데 실패했습니다.');
+            throw new Error("데이터를 가져오는 데 실패했습니다.");
           }
         }
 
         const data = await response.json();
 
         if (!Array.isArray(data)) {
-          throw new Error('잘못된 데이터 형식');
+          throw new Error("잘못된 데이터 형식");
         }
 
         setFestivals(data);
       } catch (error) {
-        setError(error.message || '축제 데이터를 불러오는 중 문제가 발생했습니다.');
+        setError(
+          error.message || "축제 데이터를 불러오는 중 문제가 발생했습니다."
+        );
       } finally {
         setLoading(false);
       }
@@ -40,15 +42,17 @@ function FestivalList() {
   }, []);
 
   const handleFestivalClick = (id) => {
-    navigate(`/festivals/${id}`); 
+    navigate(`/festivals/${id}`);
   };
 
   const handleWritePost = (id) => {
-    navigate(`/contest-submission/${id}`); // ContestSubmission 페이지로 이동
+    navigate(`/contest/${id}`); // ContestSubmission 페이지로 이동
   };
 
   if (loading) {
-    return <div className="loading-spinner">축제 데이터를 불러오는 중입니다...</div>;
+    return (
+      <div className="loading-spinner">축제 데이터를 불러오는 중입니다...</div>
+    );
   }
 
   if (error) {
@@ -63,20 +67,25 @@ function FestivalList() {
       ) : (
         <div className="festival-list">
           {festivals.map((festival) => {
-            const imageUrl = `http://192.168.45.177:8080/images/${festival.Poster}`;
+            const imageUrl = `http://192.168.45.177:8080/images/${festival.poster}`;
             return (
-              <div key={festival.Id} className="festival-card">
+              <div key={festival.id} className="festival-card">
                 <img
                   src={imageUrl}
-                  alt={festival.Title || '축제 이미지'}
+                  alt={festival.poster || "축제 이미지"}
                   className="festival-poster"
-                  onClick={() => handleFestivalClick(festival.Id)} // 클릭 시 축제 열람
+                  onClick={() => handleFestivalClick(festival.id)} // 클릭 시 축제 열람
                 />
                 <div className="festival-info">
-                  <h3>{festival.Title}</h3>
-                  <p><strong>주최:</strong> {festival.Host}</p>
-                  <p>{festival.Content}</p>
-                  <button onClick={() => handleWritePost(festival.Id)}>공모글 작성</button> {/* 공모글 작성 버튼 */}
+                  <h3>{festival.title}</h3>
+                  <p>
+                    <strong>주최:</strong> {festival.host}
+                  </p>
+                  <p>{festival.content}</p>
+                  <button onClick={() => handleWritePost(festival.id)}>
+                    공모글 작성
+                  </button>{" "}
+                  {/* 공모글 작성 버튼 */}
                 </div>
               </div>
             );
@@ -88,5 +97,3 @@ function FestivalList() {
 }
 
 export default FestivalList;
-
-

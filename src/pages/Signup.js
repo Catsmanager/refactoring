@@ -1,21 +1,19 @@
-import React, { useState } from 'react';
-import '../styles/Signup.css'; 
+import React, { useState } from "react";
+import "../styles/Signup.css";
 
 function Signup() {
-  const [name, setname] = useState('');
+  const [name, setname] = useState("");
 
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
 
-  const [password, setPassword] = useState('');
+  const [password, setPassword] = useState("");
 
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState("");
 
-  const [phone, setPhone] = useState('');
+  const [phone, setPhone] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
-
 
     const userData = {
       name,
@@ -24,26 +22,25 @@ function Signup() {
       password,
     };
 
-    fetch('http://172.20.10.3:8080/signup', {
-      method: 'POST',
+    fetch("http://172.20.10.3:8080/signup", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(userData),
     })
-      .then(response => {
+      .then((response) => {
         if (!response.ok) {
-          throw new Error('회원가입 실패');
+          throw new Error("회원가입 실패");
         }
         return response.json();
       })
-      .then(data => {
-        setMessage('회원가입이 성공적으로 완료되었습니다!');
-      
+      .then((data) => {
+        setMessage("회원가입이 성공적으로 완료되었습니다!");
       })
-      .catch(error => {
-        setMessage('회원가입 중 오류가 발생했습니다. 다시 시도해 주세요.');
-        console.error('Error:', error);
+      .catch((error) => {
+        setMessage("회원가입 중 오류가 발생했습니다. 다시 시도해 주세요.");
+        console.error("Error:", error);
       });
   };
 
@@ -93,8 +90,18 @@ function Signup() {
             required
           />
         </div>
-        <button type="submit" className="btn btn-primary btn-block mt-3">회원가입</button>
-        {message && <p className={`signup-message ${message.includes('오류') ? 'text-danger' : 'text-success'} mt-3`}>{message}</p>}
+        <button type="submit" className="btn btn-primary btn-block mt-3">
+          가입하기
+        </button>
+        {message && (
+          <p
+            className={`signup-message ${
+              message.includes("오류") ? "text-danger" : "text-success"
+            } mt-3`}
+          >
+            {message}
+          </p>
+        )}
       </form>
     </div>
   );

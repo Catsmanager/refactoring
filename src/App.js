@@ -8,11 +8,14 @@ import Signup from './pages/Signup'
 import HomePage from './pages/HomePage';
 
 import FestivalList from './pages/FestivalList';
+import FestivalPage from './pages/FestivalPage';
 
 import NoticeBoard from './pages/NoticeBoard';
 
 import ContestSubmission from './pages/ContestSubmission';
 import CustomizeFestival from './pages/CustomizeFestival';
+
+import Mypage from './pages/MyPage';
 
 import Header from './Header';
 
@@ -29,8 +32,14 @@ function App() {
           <Route path="/login" element={<Login />} />
           
           <Route path="/festivals" element={<FestivalList />} />
-          <Route path="/contest" element={<ContestSubmission />} />
+          <Route path="/festivals/:id" element={<FestivalPage/>}/>
+
+          <Route path="/contest/:id" element={<ContestSubmission />} />
+
           <Route path="/notices" element={<NoticeBoard />} />
+
+          <Route path="/mypage" element={<Mypage/>}/>
+          
           <Route path="/signup" element={<Signup/>}/>
           <Route path='/customize-festival' element={<CustomizeFestival />} />
         </Routes>

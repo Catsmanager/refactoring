@@ -1,24 +1,27 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import '../styles/MyPage.css'; 
+import '../styles/MyPage.css';
+
 function MyPage() {
-  const { userId } = useParams();
   const [userData, setUserData] = useState(null);
   const [posts, setPosts] = useState([]);
   const [selectedPost, setSelectedPost] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // 유저 정보와 게시물 목록 가져오기
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await fetch(`http://172.20.10.3:5000/mypage/${userId}`); // 유저 정보 API
+        const response = await fetch(`http://172.20.10.3:8080/mypage`, {
+          method: 'GET',
+          credentials: 'include', // 세션 쿠키 포함
+        });
         if (!response.ok) {
-          throw new Error('유저 데이터를 가져오는 데 실패했습니다.');
+          throw new Error(`유저 데이터를 가져오는 데 실패했습니다. 상태 코드: ${response.status}`);
         }
         const data = await response.json();
-        setUserData(data);
-        setPosts(data.posts || []);
+        setUserData(data); // 유저 데이터 저장
+        setPosts(data.posts || []); // 게시물 목록 저장
       } catch (error) {
         setError(error.message);
       } finally {
@@ -27,17 +30,21 @@ function MyPage() {
     };
 
     fetchUserData();
-  }, [userId]);
+  }, []);
 
+  // 특정 게시물 조회
   const handlePostClick = async (postId) => {
     setLoading(true);
     try {
-      const response = await fetch(`http://172.20.10.3:5000/mypage/${userId}/${postId}`); // 글 조회 API
+      const response = await fetch(`http://172.20.10.3:8080/mypage/${postId}`, {
+        method: 'GET',
+        credentials: 'include', // 세션 쿠키 포함
+      });
       if (!response.ok) {
-        throw new Error('글을 가져오는 데 실패했습니다.');
+        throw new Error(`게시물을 가져오는 데 실패했습니다. 상태 코드: ${response.status}`);
       }
       const postData = await response.json();
-      setSelectedPost(postData);
+      setSelectedPost(postData); // 선택된 게시물 저장
     } catch (error) {
       setError(error.message);
     } finally {
@@ -53,15 +60,15 @@ function MyPage() {
       <h2>마이페이지</h2>
       {userData ? (
         <div>
-          <p><strong>이름:</strong> {userData.Name}</p> {/* 수정 필요 */}
-          <p><strong>이메일:</strong> {userData.Email}</p> {/* 수정 필요 */}
-          <p><strong>전화번호:</strong> {userData.Phone}</p> {/* 수정 필요 */}
+          <p><strong>이름:</strong> {userData.name}</p>
+          <p><strong>이메일:</strong> {userData.email}</p>
+          <p><strong>전화번호:</strong> {userData.phone}</p>
           <h3>게시물 목록:</h3>
           {posts.length > 0 ? (
             <ul>
               {posts.map((post) => (
-                <li key={post.Id} onClick={() => handlePostClick(post.Id)}> {/* 수정 필요 */}
-                  {post.Title} {/* 수정 필요 */}
+                <li key={post.id} onClick={() => handlePostClick(post.id)}>
+                  {post.title}
                 </li>
               ))}
             </ul>
@@ -71,8 +78,8 @@ function MyPage() {
           {selectedPost && (
             <div>
               <h3>선택한 게시물</h3>
-              <p><strong>제목:</strong> {selectedPost.Title}</p>
-              <p><strong>내용:</strong> {selectedPost.Content}</p> {/*확인 */}
+              <p><strong>제목:</strong> {selectedPost.title}</p>
+              <p><strong>내용:</strong> {selectedPost.content}</p>
             </div>
           )}
         </div>
