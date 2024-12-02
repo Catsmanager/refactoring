@@ -35,7 +35,7 @@ public class MyPageService {
         List<Post> posts = postRepository.findByUserId(userId);
         return posts.stream()
                 .map(post -> new PostDto(post.getId(), post.getTitle(), post.getContent(), post.getCreatedAt(),
-                        post.getUser()))
+                        post.getFestival().getId()))
                 .collect(Collectors.toList());
     }
 
@@ -44,6 +44,7 @@ public class MyPageService {
         Post post = postRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("invalid post id : " + id));
 
-        return new PostDto(post.getId(), post.getTitle(), post.getContent(), post.getCreatedAt(), post.getUser());
+        return new PostDto(post.getId(), post.getTitle(), post.getContent(), post.getCreatedAt(),
+                post.getFestival().getId());
     }
 }

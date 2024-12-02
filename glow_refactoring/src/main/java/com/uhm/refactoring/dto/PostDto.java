@@ -13,16 +13,13 @@ public class PostDto {
     private String title;
     private String content;
     private LocalDateTime createdAt;
-    private User user;
-    private Long userId;
-    private String username;
+    private Long festivalId;
 
-    public PostDto(Long id, String title, String content, LocalDateTime createdAt, User user) {
+    public PostDto(Long id, String title, String content, LocalDateTime createdAt, Long festivalId) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.createdAt = createdAt;
-        this.userId = user.getId();
-        this.username = user.getName();
+        this.festivalId = festivalId;
     }
 }

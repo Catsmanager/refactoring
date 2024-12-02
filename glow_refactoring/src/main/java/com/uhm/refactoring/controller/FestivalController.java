@@ -45,10 +45,8 @@ public class FestivalController {
     @PostMapping("/festivals/{id}")
     @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<PostDto> createPost(@PathVariable(name = "id") Long id,
-                                              @RequestBody AddPostRequest addPostRequest,
-                                              Principal principal) {
-        Long userId = userService.findIdByEmail(principal.getName());
-        PostDto createdPost = festivalService.createPost(userId, id, addPostRequest);
+                                              @RequestBody AddPostRequest addPostRequest) {
+        PostDto createdPost = festivalService.createPost(id, addPostRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdPost);
     }
 }

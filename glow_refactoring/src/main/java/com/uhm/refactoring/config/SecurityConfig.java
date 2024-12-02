@@ -36,12 +36,11 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
                 .cors(Customizer.withDefaults())
-                //.addFilterBefore(jsonUserAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .addFilterAfter(jsonUserAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .formLogin(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((authorize) -> authorize
-                        .requestMatchers("/mypage", "/mypage/**").hasAnyAuthority("ROLE_USER")
+                        //.requestMatchers("/mypage", "/mypage/**").hasAnyAuthority("ROLE_USER")
                         .anyRequest().permitAll())
                 .logout((logout) -> logout
                         .invalidateHttpSession(true)

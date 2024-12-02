@@ -51,15 +51,11 @@ public class FestivalService {
     }
 
     //공모전 게시글 작성
-    public PostDto createPost(Long userId, Long festivalId, AddPostRequest addPostRequest) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new IllegalArgumentException("invalid user id : " + userId));
-
+    public PostDto createPost(Long festivalId, AddPostRequest addPostRequest) {
         Festival festival = festivalRepository.findById(festivalId)
                 .orElseThrow(() -> new IllegalArgumentException("invalid festival id : " + festivalId));
 
         Post post = new Post();
-        post.setUser(user);
         post.setFestival(festival);
         post.setTitle(addPostRequest.getTitle());
         post.setContent(addPostRequest.getContent());
@@ -67,6 +63,6 @@ public class FestivalService {
 
         Post savedPost = postRepository.save(post);
         return new PostDto(savedPost.getId(), savedPost.getTitle(), savedPost.getContent(), savedPost.getCreatedAt(),
-                savedPost.getUser());
+                festivalId);
     }
 }
