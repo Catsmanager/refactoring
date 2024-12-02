@@ -32,7 +32,7 @@ public class UserService {
                 .orElseThrow(() -> new IllegalArgumentException("Unexpected User"));
     }
 
-    public Long findIdByName(String name) {
-        return userRepository.findIdByName(name);
+    public Long findIdByEmail(String email) {
+        return userRepository.findIdByEmail(email);
     }
 }

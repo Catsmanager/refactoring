@@ -2,6 +2,7 @@ package com.uhm.refactoring.controller;
 
 import com.uhm.refactoring.dto.AddPostRequest;
 import com.uhm.refactoring.dto.FestivalDto;
+import com.uhm.refactoring.dto.FestivalPosterDto;
 import com.uhm.refactoring.dto.PostDto;
 import com.uhm.refactoring.service.FestivalService;
 import com.uhm.refactoring.service.UserService;
@@ -27,8 +28,8 @@ public class FestivalController {
     //축제 목록
     @GetMapping("/festivals")
     @CrossOrigin(origins = "http://localhost:3000")
-    public ResponseEntity<List<FestivalDto>> getFestivals() {
-        List<FestivalDto> festivals = festivalService.getFestivals();
+    public ResponseEntity<List<FestivalPosterDto>> getFestivals() {
+        List<FestivalPosterDto> festivals = festivalService.getFestivals();
         return ResponseEntity.ok(festivals);
     }
 
@@ -46,7 +47,7 @@ public class FestivalController {
     public ResponseEntity<PostDto> createPost(@PathVariable(name = "id") Long id,
                                               @RequestBody AddPostRequest addPostRequest,
                                               Principal principal) {
-        Long userId = userService.findIdByName(principal.getName());
+        Long userId = userService.findIdByEmail(principal.getName());
         PostDto createdPost = festivalService.createPost(userId, id, addPostRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdPost);
     }

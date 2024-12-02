@@ -2,6 +2,7 @@ package com.uhm.refactoring.service;
 
 import com.uhm.refactoring.dto.AddPostRequest;
 import com.uhm.refactoring.dto.FestivalDto;
+import com.uhm.refactoring.dto.FestivalPosterDto;
 import com.uhm.refactoring.dto.PostDto;
 import com.uhm.refactoring.entity.Festival;
 import com.uhm.refactoring.entity.Post;
@@ -31,11 +32,12 @@ public class FestivalService {
     }
 
     //축제 목록
-    public List<FestivalDto> getFestivals() {
+    public List<FestivalPosterDto> getFestivals() {
         List<Festival> festivals = festivalRepository.findAll();
 
         return festivals.stream()
-                .map(festival -> new FestivalDto(festival.getTitle(), festival.getPoster()))
+                .map(festival -> new FestivalPosterDto(festival.getTitle(), festival.getHost(),
+                        festival.getPoster()))
                 .collect(Collectors.toList());
     }
 

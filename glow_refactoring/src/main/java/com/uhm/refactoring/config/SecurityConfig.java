@@ -36,21 +36,20 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
                 .cors(Customizer.withDefaults())
-                //.addFilterBefore(new CorsFilter(), UsernamePasswordAuthenticationFilter.class)
+                //.addFilterBefore(jsonUserAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
+                .addFilterAfter(jsonUserAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .formLogin(AbstractHttpConfigurer::disable)
-                .addFilterAfter(jsonUserAuthenticationFilter(), LogoutFilter.class)
                 .authorizeHttpRequests((authorize) -> authorize
-                        .requestMatchers("/mypage/**").authenticated()
+                        .requestMatchers("/mypage", "/mypage/**").hasAnyAuthority("ROLE_USER")
                         .anyRequest().permitAll())
-                        //.anyRequest().permitAll()) //포스트맨 쓸 때
                 .logout((logout) -> logout
                         .invalidateHttpSession(true)
                         .deleteCookies("JSESSIONID")
                         .logoutUrl("/logout")
                         .logoutSuccessHandler(logoutSuccessHandler()))
                 .sessionManagement(session -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)); //JWT 사용 X -> 일단 세션을 사용해야 함
+                        .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)); //JWT 사용 X -> 일단 세션을 사용해야 함
 
         return http.build();
     }

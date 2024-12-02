@@ -11,10 +11,8 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class FestivalDto {
-    private String host;
+public class FestivalPosterDto {
     private String title;
-    private String content;
+    private String host;
     private String poster;
-    private LocalDateTime createdAt;
 }
