@@ -7,8 +7,6 @@ import com.uhm.refactoring.service.MyPageService;
 import com.uhm.refactoring.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -52,10 +50,5 @@ public class MyPageController {
             throw new IllegalStateException("No permission to this post!");
         }
         return ResponseEntity.ok(post);
-    }
-
-    @GetMapping("/test")
-    public ResponseEntity<String> test(Principal principal) {
-        return ResponseEntity.ok(principal.getName());
     }
 }

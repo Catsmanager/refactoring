@@ -36,7 +36,7 @@ public class FestivalService {
         List<Festival> festivals = festivalRepository.findAll();
 
         return festivals.stream()
-                .map(festival -> new FestivalPosterDto(festival.getTitle(), festival.getHost(),
+                .map(festival -> new FestivalPosterDto(festival.getId(), festival.getTitle(), festival.getHost(),
                         festival.getPoster()))
                 .collect(Collectors.toList());
     }
@@ -46,7 +46,7 @@ public class FestivalService {
         Festival festival = festivalRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException(String.valueOf(id)));
 
-        return new FestivalDto(festival.getHost(), festival.getTitle(), festival.getContent(), festival.getPoster(),
+        return new FestivalDto(festival.getId(), festival.getHost(), festival.getTitle(), festival.getContent(), festival.getPoster(),
                 festival.getCreatedAt());
     }
 

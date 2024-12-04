@@ -24,7 +24,7 @@ public class NoticeService {
         List<Notice> notices = noticeRepository.findAll();
 
         return notices.stream()
-                .map(notice -> new NoticeDto(notice.getAuthor(), notice.getTitle(), notice.getContent(),
+                .map(notice -> new NoticeDto(notice.getId(), notice.getAuthor(), notice.getTitle(), notice.getContent(),
                         notice.getCreatedAt()))
                 .collect(Collectors.toList());
    }
@@ -34,6 +34,6 @@ public class NoticeService {
        Notice notice = noticeRepository.findById(id)
                .orElseThrow(() -> new IllegalArgumentException(String.valueOf(id)));
 
-        return new NoticeDto(notice.getAuthor(), notice.getTitle(), notice.getContent(), notice.getCreatedAt());
+        return new NoticeDto(notice.getId(), notice.getAuthor(), notice.getTitle(), notice.getContent(), notice.getCreatedAt());
    }
 }

@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 @Setter
 @AllArgsConstructor
 public class NoticeDto {
+    private Long id;
     private String author;
     private String title;
     private String content;

@@ -47,6 +47,6 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
         // JSON 형식으로 변환하여 응답에 쓰기
         String responseJson = objectMapper.writeValueAsString(responseData);
         response.getWriter().write(responseJson);
-        //response.flushBuffer();
+        response.flushBuffer();
     }
 }

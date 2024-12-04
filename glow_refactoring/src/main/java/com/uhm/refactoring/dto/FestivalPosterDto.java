@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class FestivalPosterDto {
+    private Long id;
     private String title;
     private String host;
     private String poster;
